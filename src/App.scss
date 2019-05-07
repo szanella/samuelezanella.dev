@@ -1,3 +1,6 @@
+$transition-stagger: 500ms;
+$transition-duration: 1s;
+
 .shards-container {
   margin: auto;
   height: 400px;
@@ -13,15 +16,15 @@
     .shard {
       height: 100%;
       width: 100%;
-      transition: all 300ms ease-in-out;
+      transition: all $transition-duration ease-in-out;
     }
 
-    &:nth-child(1) .shard {
-      transition-delay: 0ms;
-    }
 
-    &:nth-child(1) .shard {
-      transition-delay: 300ms;
+    @for $i from 1 through 2 {
+      $delay: ($i - 1) * $transition-stagger;
+      &:nth-child(#{$i}) .shard {
+        transition-delay: $delay;
+      }
     }
   }
 
@@ -29,26 +32,56 @@
     &1 {
       .shard-wrap {
         &:nth-child(1) .shard {
-          background-color: yellow;
-          clip-path: polygon(24% 39%, 24% 79%, 80% 79%, 80% 39%);
+          background-color: rgb(0, 0, 0);
+          clip-path: polygon(10% 20%, 90% 20%, 90% 80%, 10% 80%);
         }
 
         &:nth-child(2) .shard {
-          background-color: red;
-          clip-path: polygon(46% 75%, 0% 100%, 100% 100%);
+          background-color: rgb(63, 61, 60);
+          clip-path: polygon(10% 17%, 90% 17%, 90% 20%, 10% 20%);
+        }
+
+        &:nth-child(3) .shard {
+          background-color: rgb(252, 64, 66);
+          clip-path: circle(0.65% at 11.5% 18.5%);
+        }
+
+        &:nth-child(4) .shard {
+          background-color: rgb(224, 192, 76);
+          clip-path: circle(0.65% at 13% 18.5%);
+        }
+
+        &:nth-child(5) .shard {
+          background-color: rgb(114, 191, 71);
+          clip-path: circle(0.65% at 14.5% 18.5%);
         }
       }
     }
     &2 {
       .shard-wrap {
         &:nth-child(1) .shard {
-          background-color: blue;
-          clip-path: polygon(14% 35%, 14% 84%, 85% 84%, 85% 35%);
+          background-color: rgb(192, 192, 192);
+          clip-path: polygon(10% 17%, 10% 23%, 90% 23%, 90% 17%);
         }
 
         &:nth-child(2) .shard {
-          background-color: purple;
-          clip-path: polygon(81% 33%, 68% 65%, 100% 100%);
+          background-color: rgb(224, 224, 224);
+          clip-path: polygon(10% 23%, 10% 80%, 90% 80%, 90% 23%);
+        }
+
+        &:nth-child(3) .shard {
+          background-color: rgb(255, 255, 255);
+          clip-path: circle(1.5% at 86.5% 20%);
+        }
+
+        &:nth-child(4) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 0%);
+        }
+
+        &:nth-child(5) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 0%);
         }
       }
     }
