@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
 
 class App extends React.Component {
@@ -10,7 +9,8 @@ class App extends React.Component {
       containerState: 1
     };
 
-    this.toNextState = this.toNextState.bind(this);
+    this.toState = this.toState.bind(this);
+    this.handleKeypress = this.handleKeypress.bind(this);
   }
 
   componentDidMount() {
@@ -21,18 +21,34 @@ class App extends React.Component {
     // clearInterval(this.interval);
   }
 
-  toNextState() {
-    const nextContainerState = this.state.containerState === 2 ? 1 : this.state.containerState + 1;
+  handleKeypress(event) {
+    if (event.key === 'ArrowRight') {
+      this.toState(true);
+    } else if (event.key === 'ArrowLeft') {
+      this.toState(false);
+    }
+  }
 
-      this.setState({
-        containerState: nextContainerState
-      });
+  toState(next = true) {
+    let nextContainerState;
+    if (next) {
+      nextContainerState = this.state.containerState === 3 ? 1 : this.state.containerState + 1;
+    } else {
+      nextContainerState = this.state.containerState === 1 ? 3 : this.state.containerState - 1;
+    }
+
+    this.setState({
+      containerState: nextContainerState
+    });
   }
 
   render() {
     return (
       <div className="app">
-        <div className={`shards-container state-${this.state.containerState}`} onClick={this.toNextState}>
+        <div tabIndex={1}
+             onKeyUp={this.handleKeypress}
+             onClick={this.toState}
+             className={`shards-container state-${this.state.containerState}`}>
           <div className='shard-wrap'>
             <div className='shard'></div>
           </div>
@@ -52,6 +68,6 @@ class App extends React.Component {
       </div>
     )
   }
-};
+}
 
 export default App;
