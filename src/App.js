@@ -5,20 +5,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.containerStates = [
+      'backend',
+      'frontend',
+      'ai'
+    ];
+
+    this.nShards = 7;
+
     this.state = {
-      containerState: 1
+      containerState: this.containerStates[0]
     };
 
     this.toState = this.toState.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
-  }
-
-  componentDidMount() {
-    // this.interval = setInterval(this.toNextState, 1500);
-  }
-
-  componentWillUnmount() {
-    // clearInterval(this.interval);
   }
 
   handleKeypress(event) {
@@ -30,15 +30,14 @@ class App extends React.Component {
   }
 
   toState(next = true) {
-    let nextContainerState;
-    if (next) {
-      nextContainerState = this.state.containerState === 3 ? 1 : this.state.containerState + 1;
-    } else {
-      nextContainerState = this.state.containerState === 1 ? 3 : this.state.containerState - 1;
-    }
+    const currentIndex = this.containerStates.indexOf(this.state.containerState);
+    const totStates = this.containerStates.length;
 
+    // Rotate the state index between 0 and the number of states - 1
     this.setState({
-      containerState: nextContainerState
+      containerState: this.containerStates[next ?
+        (currentIndex + 1) % totStates :
+        (currentIndex + totStates - 1) % totStates]
     });
   }
 
@@ -48,22 +47,16 @@ class App extends React.Component {
         <div tabIndex={1}
              onKeyUp={this.handleKeypress}
              onClick={this.toState}
-             className={`shards-container state-${this.state.containerState}`}>
-          <div className='shard-wrap'>
-            <div className='shard'></div>
-          </div>
-          <div className='shard-wrap'>
-            <div className='shard'></div>
-          </div>
-          <div className='shard-wrap'>
-            <div className='shard'></div>
-          </div>
-          <div className='shard-wrap'>
-            <div className='shard'></div>
-          </div>
-          <div className='shard-wrap'>
-            <div className='shard'></div>
-          </div>
+             className={`shards-container ${this.state.containerState}`}>
+          {
+            // Generate nShards shards
+            [...Array(this.nShards)].map(() => (
+              <div className='shard-wrap'>
+                <div className='shard'></div>
+              </div>
+            ))
+          }
+
         </div>
       </div>
     )
