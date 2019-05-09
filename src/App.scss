@@ -6,18 +6,21 @@ $mouse-start-y: 24%;
 
 $aspect-ratio: 1/2;
 
-$mouse-coords: (
-        x1: $mouse-start-x,
-        y1: $mouse-start-y,
-        x2: $mouse-start-x + 2%,
-        y2: $mouse-start-y + 2%,
-        x3: $mouse-start-x + 1%,
-        y3: $mouse-start-y + 4%
+$mouse-base-coords: (
+        x1: 0%,
+        y1: 0%,
+        x2: 2%,
+        y2: 2%,
+        x3: 1%,
+        y3: 4%
 );
 
-@function translate-mouse($coords, $delta-x, $delta-y) {
-
-  @return polygon(#{map-get($coords, x1) + $delta-x} #{map-get($coords, y1) + $delta-y}, #{map-get($coords, x2) + $delta-x} #{map-get($coords, y2) + $delta-y}, #{map-get($coords, x3) + $delta-x} #{map-get($coords, y3) + $delta-y});
+@function mouse-coords($coords, $x, $y) {
+  @return polygon(
+                  #{map-get($coords, x1) + $x} #{map-get($coords, y1) + $y},
+                  #{map-get($coords, x2) + $x} #{map-get($coords, y2) + $y},
+                  #{map-get($coords, x3) + $x} #{map-get($coords, y3) + $y}
+  );
 }
 
 .shards-container {
@@ -85,7 +88,7 @@ $mouse-coords: (
 
       &:nth-child(7) .shard {
         background-color: rgb(255, 255, 255);
-        clip-path: translate-mouse($mouse-coords, -80, 80);
+        clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
       }
     }
   }
@@ -124,9 +127,9 @@ $mouse-coords: (
 
       &:nth-child(7) .shard {
         background-color: rgb(0, 0, 0);
-        clip-path: translate-mouse($mouse-coords, 0, 0);
+        clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
 
-        animation: move-around 5s ease-in-out infinite 1s;
+        animation: move-around 5s ease-in-out infinite 0.75s;
       }
     }
   }
@@ -165,7 +168,7 @@ $mouse-coords: (
 
       &:nth-child(7) .shard {
         background-color: rgb(255, 255, 255);
-        clip-path: translate-mouse($mouse-coords, -80, 80);
+        clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
       }
     }
   }
@@ -185,24 +188,30 @@ $mouse-coords: (
 
 @keyframes move-around {
   0% {
-    clip-path: translate-mouse($mouse-coords, 0, 0);
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
   }
-  22% {
-    clip-path: translate-mouse($mouse-coords, 0, 0);
+  8% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
   }
-  35% {
-    clip-path: translate-mouse($mouse-coords, -20%, 20%);
+  21% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 20%, $mouse-start-y + 20%);
   }
-  49% {
-    clip-path: translate-mouse($mouse-coords, -20%, 20%);
+  39% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 20%, $mouse-start-y + 20%);
   }
-  60% {
-    clip-path: translate-mouse($mouse-coords, -30%, 10%);
+  50% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 30%, $mouse-start-y + 10%);
   }
-  90% {
-    clip-path: translate-mouse($mouse-coords, -30%, 10%);
+  75% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 30%, $mouse-start-y + 10%);
+  }
+  84% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 35%, $mouse-start-y + 18%);
+  }
+  91% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 35%, $mouse-start-y + 18%);
   }
   100% {
-    clip-path: translate-mouse($mouse-coords, 0, 0);
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
   }
 }
