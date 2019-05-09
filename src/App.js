@@ -11,7 +11,7 @@ class App extends React.Component {
       'ai'
     ];
 
-    this.nShards = 7;
+    this.nShards = 11;
 
     this.state = {
       containerState: this.containerStates[0]

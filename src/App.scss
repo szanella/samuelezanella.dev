@@ -1,5 +1,5 @@
-$transition-stagger: 0.1s;
-$transition-duration: 0.75s;
+$transition-stagger: 0.025s;
+$transition-duration: 0.5s;
 
 $mouse-start-x: 78%;
 $mouse-start-y: 24%;
@@ -23,6 +23,14 @@ $mouse-base-coords: (
   );
 }
 
+.app {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
 .shards-container {
   margin: auto;
   height: calc(100vw * #{$aspect-ratio});
@@ -43,7 +51,7 @@ $mouse-base-coords: (
     }
 
 
-    @for $i from 1 through 2 {
+    @for $i from 1 through 11 {
       $delay: ($i - 1) * $transition-stagger;
       &:nth-child(#{$i}) .shard {
         transition-delay: $delay;
@@ -90,6 +98,26 @@ $mouse-base-coords: (
         background-color: rgb(255, 255, 255);
         clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
       }
+
+      &:nth-child(8) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 0%);
+      }
+
+      &:nth-child(9) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 50%);
+      }
+
+      &:nth-child(10) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 100%);
+      }
+
+      &:nth-child(11) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+      }
     }
   }
 
@@ -131,44 +159,136 @@ $mouse-base-coords: (
 
         animation: move-around 5s ease-in-out infinite 0.75s;
       }
+
+      &:nth-child(8) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 0%);
+      }
+
+      &:nth-child(9) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 50%);
+      }
+
+      &:nth-child(10) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 100%);
+      }
+
+      &:nth-child(11) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+      }
     }
   }
 
   &.ai {
     .shard-wrap {
-      &:nth-child(1) .shard {
-        background-color: rgb(0, 0, 0);
-        clip-path: polygon(35% 64.5%, 50% 49.5%, 50% 50.5%, 35% 65.5%);
+      z-index: 0;
+
+      // I3 -> H2 -> O1
+      &:nth-child(1) {
+        .shard {
+          background-color: rgb(0, 0, 0);
+          clip-path: polygon(30% 69.5%, 50% 49.5%, 50% 50.5%, 30% 70.5%);
+        }
       }
 
-      &:nth-child(2) .shard {
-        background-color: rgb(0, 0, 0);
-        clip-path: polygon(35% 34.5%, 50% 49.5%, 50% 50.5%, 35% 35.5%);
+      // I1 -> H1 -> O1
+      &:nth-child(2) {
+        z-index: 0;
+
+        .shard {
+          background-color: rgb(0, 0, 0);
+          clip-path: polygon(30% 29.5%, 50% 49.5%, 50% 50.5%, 30% 30.5%);
+        }
       }
 
-      &:nth-child(3) .shard {
-        background-color: rgb(224, 224, 224);
-        clip-path: circle(5% at 50% 50%);
+      // O1
+      &:nth-child(3) {
+        z-index: 1;
+
+        .shard {
+          background-color: rgb(224, 224, 224);
+          clip-path: circle(3.5% at 50% 50%);
+        }
       }
 
-      &:nth-child(4) .shard {
-        background-color: rgb(224, 224, 224);
-        clip-path: circle(5% at 35% 35%);
+      // H1
+      &:nth-child(4) {
+        z-index: 1;
+
+        .shard {
+          background-color: rgb(224, 224, 224);
+          clip-path: circle(3.5% at 40% 40%);
+        }
       }
 
-      &:nth-child(5) .shard {
-        background-color: rgb(224, 224, 224);
-        clip-path: circle(5% at 35% 65%);
+      // H2
+      &:nth-child(5) {
+        z-index: 1;
+
+        .shard {
+          background-color: rgb(224, 224, 224);
+          clip-path: circle(3.5% at 40% 60%);
+        }
       }
 
-      &:nth-child(6) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+      // I2 -> H2
+      &:nth-child(6) {
+        z-index: 0;
+
+        .shard {
+          background-color: rgb(0, 0, 0);
+          clip-path: polygon(30% 49.5%, 40% 59.5%, 40% 60.5%, 30% 50.5%);
+        }
       }
 
-      &:nth-child(7) .shard {
-        background-color: rgb(255, 255, 255);
-        clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
+      &:nth-child(7) {
+        .shard {
+          background-color: rgb(255, 255, 255);
+          clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
+        }
+      }
+
+      // I1
+      &:nth-child(8) {
+        z-index: 1;
+
+        .shard {
+          background-color: rgb(224, 224, 224);
+          clip-path: circle(3.5% at 30% 30%);
+        }
+      }
+
+      // I2
+      &:nth-child(9) {
+        z-index: 1;
+
+        .shard {
+          background-color: rgb(224, 224, 224);
+          clip-path: circle(3.5% at 30% 50%);
+        }
+      }
+
+      // I3
+      &:nth-child(10) {
+        z-index: 1;
+
+        .shard {
+          background-color: rgb(224, 224, 224);
+          clip-path: circle(3.5% at 30% 70%);
+        }
+      }
+
+      // I2 -> H1
+      &:nth-child(11) {
+        z-index: 0;
+
+        .shard {
+          background-color: rgb(0, 0, 0);
+          clip-path: polygon(30% 49.5%, 40% 39.5%, 40% 40.5%, 30% 50.5%);
+        }
       }
     }
   }
