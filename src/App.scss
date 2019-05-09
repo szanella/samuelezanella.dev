@@ -3,14 +3,26 @@ $transition-duration: 0.75s;
 
 $mouse-start-x: 78%;
 $mouse-start-y: 24%;
-$mouse-corner-1-x: $mouse-start-x + 2%;
-$mouse-corner-1-y: $mouse-start-y + 2%;
-$mouse-corner-2-x: $mouse-start-x + 1%;
-$mouse-corner-2-y: $mouse-start-y + 4%;
+
+$aspect-ratio: 1/2;
+
+$mouse-coords: (
+        x1: $mouse-start-x,
+        y1: $mouse-start-y,
+        x2: $mouse-start-x + 2%,
+        y2: $mouse-start-y + 2%,
+        x3: $mouse-start-x + 1%,
+        y3: $mouse-start-y + 4%
+);
+
+@function translate-mouse($coords, $delta-x, $delta-y) {
+
+  @return polygon(#{map-get($coords, x1) + $delta-x} #{map-get($coords, y1) + $delta-y}, #{map-get($coords, x2) + $delta-x} #{map-get($coords, y2) + $delta-y}, #{map-get($coords, x3) + $delta-x} #{map-get($coords, y3) + $delta-y});
+}
 
 .shards-container {
   margin: auto;
-  height: calc(100vw / 2);
+  height: calc(100vw * #{$aspect-ratio});
   outline: none;
   position: relative;
   width: calc(100vw - 60px);
@@ -73,7 +85,7 @@ $mouse-corner-2-y: $mouse-start-y + 4%;
 
       &:nth-child(7) .shard {
         background-color: rgb(255, 255, 255);
-        clip-path: polygon(0 0, 0 0, 0 0);
+        clip-path: translate-mouse($mouse-coords, -80, 80);
       }
     }
   }
@@ -112,9 +124,9 @@ $mouse-corner-2-y: $mouse-start-y + 4%;
 
       &:nth-child(7) .shard {
         background-color: rgb(0, 0, 0);
-        clip-path: polygon($mouse-start-x $mouse-start-y, $mouse-corner-1-x $mouse-corner-1-y, $mouse-corner-2-x $mouse-corner-2-y);
+        clip-path: translate-mouse($mouse-coords, 0, 0);
 
-        animation: move-around 3s ease-in-out infinite 0.5s;
+        animation: move-around 5s ease-in-out infinite 1s;
       }
     }
   }
@@ -153,7 +165,7 @@ $mouse-corner-2-y: $mouse-start-y + 4%;
 
       &:nth-child(7) .shard {
         background-color: rgb(255, 255, 255);
-        clip-path: polygon(0 0, 0 0, 0 0);
+        clip-path: translate-mouse($mouse-coords, -80, 80);
       }
     }
   }
@@ -173,15 +185,24 @@ $mouse-corner-2-y: $mouse-start-y + 4%;
 
 @keyframes move-around {
   0% {
-    clip-path: polygon($mouse-start-x $mouse-start-y, $mouse-corner-1-x $mouse-corner-1-y, $mouse-corner-2-x $mouse-corner-2-y);
+    clip-path: translate-mouse($mouse-coords, 0, 0);
+  }
+  22% {
+    clip-path: translate-mouse($mouse-coords, 0, 0);
   }
   35% {
-    clip-path: polygon(#{$mouse-start-x - 20%} #{$mouse-start-y + 20%}, #{$mouse-corner-1-x - 20%} #{$mouse-corner-1-y + 20%}, #{$mouse-corner-2-x - 20%} #{$mouse-corner-2-y + 20%});
+    clip-path: translate-mouse($mouse-coords, -20%, 20%);
+  }
+  49% {
+    clip-path: translate-mouse($mouse-coords, -20%, 20%);
   }
   60% {
-    clip-path: polygon(#{$mouse-start-x - 30%} #{$mouse-start-y + 10%}, #{$mouse-corner-1-x - 30%} #{$mouse-corner-1-y + 10%}, #{$mouse-corner-2-x - 30%} #{$mouse-corner-2-y + 10%});
+    clip-path: translate-mouse($mouse-coords, -30%, 10%);
+  }
+  90% {
+    clip-path: translate-mouse($mouse-coords, -30%, 10%);
   }
   100% {
-    clip-path: polygon($mouse-start-x $mouse-start-y, $mouse-corner-1-x $mouse-corner-1-y, $mouse-corner-2-x $mouse-corner-2-y);
+    clip-path: translate-mouse($mouse-coords, 0, 0);
   }
 }
