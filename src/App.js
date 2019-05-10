@@ -42,12 +42,14 @@ class App extends React.Component {
   }
 
   render() {
+    const {containerState} = this.state;
+
     return (
       <div className="app">
-        <div tabIndex={1}
+        <div className={`shards-container ${this.state.containerState}`}
+             tabIndex={1}
              onKeyUp={this.handleKeypress}
-             onClick={this.toState}
-             className={`shards-container ${this.state.containerState}`}>
+             onClick={this.toState}>
           {
             // Generate nShards shards
             [...Array(this.nShards)].map(() => (
@@ -57,6 +59,11 @@ class App extends React.Component {
             ))
           }
 
+        </div>
+        <div className='caption'>
+          <h2 className={ containerState === 'backend' ? 'up' : 'down' }>I do Backend</h2>
+          <h2 className={ containerState === 'frontend' ? 'up' : 'down' }>I do Frontend</h2>
+          <h2 className={ containerState === 'ai' ? 'up' : 'down' }>I do Artificial Intelligence</h2>
         </div>
       </div>
     )
