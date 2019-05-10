@@ -45,8 +45,8 @@ class App extends React.Component {
     const {containerState} = this.state;
 
     return (
-      <div className="app">
-        <div className={`shards-container ${this.state.containerState}`}
+      <div className={`app ${this.state.containerState}`}>
+        <div className='shards-container'
              tabIndex={1}
              onKeyUp={this.handleKeypress}
              onClick={this.toState}>

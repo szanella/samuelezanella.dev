@@ -53,6 +53,7 @@ $mouse-base-coords: (
   height: 100vh;
   justify-content: center;
   position: relative;
+  transition: background-color $transition-duration ease-in;
   width: 100vw;
 
   .shards-container {
@@ -84,192 +85,199 @@ $mouse-base-coords: (
         }
       }
     }
+  }
 
-    &.backend {
-      .shard-wrap {
-        &:nth-child(1) .shard {
-          background-color: rgb(0, 0, 0);
-          clip-path: polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%);
-        }
+  &.backend {
+    background-color: khaki;
 
-        &:nth-child(2) .shard {
-          background-color: rgb(63, 61, 60);
-          clip-path: polygon(10% 7%, 90% 7%, 90% 10%, 10% 10%);
-        }
-
-        &:nth-child(3) .shard {
-          background-color: rgb(252, 64, 66);
-          clip-path: circle(0.65% at 11.5% 8.5%);
-        }
-
-        &:nth-child(4) .shard {
-          background-color: rgb(224, 192, 76);
-          clip-path: circle(0.65% at 13% 8.5%);
-        }
-
-        &:nth-child(5) .shard {
-          background-color: rgb(114, 191, 71);
-          clip-path: circle(0.65% at 14.5% 8.5%);
-        }
-
-        &:nth-child(6) .shard {
-          background-color: rgb(240, 240, 240);
-          opacity: 0.75;
-          clip-path: polygon(11.5% 12%, 12.5% 12%, 12.5% 16%, 11.5% 16%);
-
-          animation: cursor-blink 1.5s step-end infinite 0.5s;
-        }
-
-        &:nth-child(7) .shard {
-          background-color: rgb(255, 255, 255);
-          clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
-        }
-
-        &:nth-child(8) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 0%);
-        }
-
-        &:nth-child(9) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 50%);
-        }
-
-        &:nth-child(10) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 100%);
-        }
-
-        &:nth-child(11) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
-        }
+    .shard-wrap {
+      &:nth-child(1) .shard {
+        background-color: rgb(0, 0, 0);
+        clip-path: polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%);
       }
-    }
 
-    &.frontend {
-      .shard-wrap {
-        &:nth-child(1) .shard {
-          background-color: rgb(192, 192, 192);
-          clip-path: polygon(10% 7%, 10% 13%, 90% 13%, 90% 7%);
-        }
-
-        &:nth-child(2) .shard {
-          background-color: rgb(224, 224, 224);
-          clip-path: polygon(10% 13%, 10% 90%, 90% 90%, 90% 13%);
-        }
-
-        &:nth-child(3) .shard {
-          background-color: rgb(255, 255, 255);
-          clip-path: circle(1.5% at 86.5% 10%);
-        }
-
-        &:nth-child(4) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 0%);
-        }
-
-        &:nth-child(5) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 0%);
-        }
-
-        &:nth-child(6) .shard {
-          background-color: rgb(255, 255, 255);
-          clip-path: polygon(12% 8%, 16% 8%, 16% 12%, 12% 12%);
-        }
-
-        &:nth-child(7) .shard {
-          background-color: rgb(0, 0, 0);
-          clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
-
-          animation: move-around 5s ease-in-out infinite 0.75s;
-        }
-
-        &:nth-child(8) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 0%);
-        }
-
-        &:nth-child(9) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 50%);
-        }
-
-        &:nth-child(10) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 100%);
-        }
-
-        &:nth-child(11) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
-        }
+      &:nth-child(2) .shard {
+        background-color: rgb(63, 61, 60);
+        clip-path: polygon(10% 7%, 90% 7%, 90% 10%, 10% 10%);
       }
-    }
 
-    &.ai {
-      .shard-wrap {
-        // I3 -> H2 -> O1
+      &:nth-child(3) .shard {
+        background-color: rgb(252, 64, 66);
+        clip-path: circle(0.65% at 11.5% 8.5%);
+      }
 
-        &:nth-child(1) {
-          @include synapse(40% 70%, 60% 50%);
-        }
+      &:nth-child(4) .shard {
+        background-color: rgb(224, 192, 76);
+        clip-path: circle(0.65% at 13% 8.5%);
+      }
 
-        // I1 -> H1 -> O1
-        &:nth-child(2) {
-          @include synapse(40% 30%, 60% 50%);
-        }
+      &:nth-child(5) .shard {
+        background-color: rgb(114, 191, 71);
+        clip-path: circle(0.65% at 14.5% 8.5%);
+      }
 
-        // O1
-        &:nth-child(3) {
-          @include neuron(60% 50%);
-        }
+      &:nth-child(6) .shard {
+        background-color: rgb(240, 240, 240);
+        opacity: 0.75;
+        clip-path: polygon(11.5% 12%, 12.5% 12%, 12.5% 16%, 11.5% 16%);
 
-        // H1
-        &:nth-child(4) {
-          @include neuron(50% 40%);
-        }
+        animation: cursor-blink 1.5s step-end infinite 0.5s;
+      }
 
-        // H2
-        &:nth-child(5) {
-          @include neuron(50% 60%);
-        }
+      &:nth-child(7) .shard {
+        background-color: rgb(255, 255, 255);
+        clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
+      }
 
-        // I2 -> H2
-        &:nth-child(6) {
-          @include synapse(40% 50%, 50% 60%);
-        }
+      &:nth-child(8) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 0%);
+      }
 
-        &:nth-child(7) {
-          .shard {
-            background-color: rgb(255, 255, 255);
-            clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
-          }
-        }
+      &:nth-child(9) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 50%);
+      }
 
-        // I1
-        &:nth-child(8) {
-          @include neuron(40% 30%);
-        }
+      &:nth-child(10) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 100%);
+      }
 
-        // I2
-        &:nth-child(9) {
-          @include neuron(40% 50%);
-        }
-
-        // I3
-        &:nth-child(10) {
-          @include neuron(40% 70%);
-        }
-
-        // I2 -> H1
-        &:nth-child(11) {
-          @include synapse(40% 50%, 50% 40%);
-        }
+      &:nth-child(11) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
       }
     }
   }
+
+  &.frontend {
+    background-color: bisque;
+
+    .shard-wrap {
+      &:nth-child(1) .shard {
+        background-color: rgb(192, 192, 192);
+        clip-path: polygon(10% 7%, 10% 13%, 90% 13%, 90% 7%);
+      }
+
+      &:nth-child(2) .shard {
+        background-color: rgb(224, 224, 224);
+        clip-path: polygon(10% 13%, 10% 90%, 90% 90%, 90% 13%);
+      }
+
+      &:nth-child(3) .shard {
+        background-color: rgb(255, 255, 255);
+        clip-path: circle(1.5% at 86.5% 10%);
+      }
+
+      &:nth-child(4) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 0%);
+      }
+
+      &:nth-child(5) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 0%);
+      }
+
+      &:nth-child(6) .shard {
+        background-color: rgb(255, 255, 255);
+        clip-path: polygon(12% 8%, 16% 8%, 16% 12%, 12% 12%);
+      }
+
+      &:nth-child(7) .shard {
+        background-color: rgb(0, 0, 0);
+        clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+
+        animation: move-around 5s ease-in-out infinite 0.75s;
+      }
+
+      &:nth-child(8) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 0%);
+      }
+
+      &:nth-child(9) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 50%);
+      }
+
+      &:nth-child(10) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: circle(0 at 0% 100%);
+      }
+
+      &:nth-child(11) .shard {
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+      }
+    }
+  }
+
+  &.ai {
+    background-color: aliceblue;
+
+    .shard-wrap {
+      // I3 -> H2 -> O1
+
+      &:nth-child(1) {
+        @include synapse(40% 70%, 60% 50%);
+      }
+
+      // I1 -> H1 -> O1
+      &:nth-child(2) {
+        @include synapse(40% 30%, 60% 50%);
+      }
+
+      // O1
+      &:nth-child(3) {
+        @include neuron(60% 50%);
+      }
+
+      // H1
+      &:nth-child(4) {
+        @include neuron(50% 40%);
+      }
+
+      // H2
+      &:nth-child(5) {
+        @include neuron(50% 60%);
+      }
+
+      // I2 -> H2
+      &:nth-child(6) {
+        @include synapse(40% 50%, 50% 60%);
+      }
+
+      &:nth-child(7) {
+        .shard {
+          background-color: rgb(255, 255, 255);
+          clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
+        }
+      }
+
+      // I1
+      &:nth-child(8) {
+        @include neuron(40% 30%);
+      }
+
+      // I2
+      &:nth-child(9) {
+        @include neuron(40% 50%);
+      }
+
+      // I3
+      &:nth-child(10) {
+        @include neuron(40% 70%);
+      }
+
+      // I2 -> H1
+      &:nth-child(11) {
+        @include synapse(40% 50%, 50% 40%);
+      }
+    }
+  }
+
 
   .caption {
     align-items: center;
@@ -284,12 +292,12 @@ $mouse-base-coords: (
       margin: 0;
       position: absolute;
       text-align: center;
-      transition: all 150ms ease-out;
+      transition: all #{$transition-duration / 2} ease-out;
       width: 100%;
 
       &.up {
         transform: translateY(0);
-        transition-delay: 150ms;
+        transition-delay: #{$transition-duration / 2};
       }
 
       &.down {
