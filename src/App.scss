@@ -1,11 +1,52 @@
+$aspect-ratio: 1/2;
 $transition-stagger: 0.025s;
 $transition-duration: 0.5s;
 
+// Window
+$window-width: 85%;
+$window-height: 85%;
+
+@mixin window-header($header-h, $flip) {
+  $x1: (100% - $window-width) / 2;
+  $x2: 100% - $x1;
+  $y1: (100% - $window-height) / 2;
+  $y2: $y1 + $header-h;
+  @if $flip == true {
+    clip-path: polygon($x1 $y1, $x1 $y2, $x2 $y2, $x2 $y1);
+  } @else {
+    clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
+  }
+}
+
+@mixin window-body($header-h, $flip) {
+  $x1: (100% - $window-width) / 2;
+  $x2: 100% - $x1;
+  $y1: (100% - $window-height) / 2  + $header-h;
+  $y2: 100% - (100% - $window-height) / 2;
+  @if $flip == true {
+    clip-path: polygon($x1 $y1, $x1 $y2, $x2 $y2, $x2 $y1);
+  } @else {
+    clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
+  }
+}
+
+// Backend
+$terminal-bar-height: 3.5%;
+$terminal-button-radius: 0.65%;
+$terminal-button-margin: 0.2%;
+$terminal-cursor-width: 1%;
+$terminal-cursor-height: 4%;
+
+@mixin terminal-button($n) {
+  $x1: (100% - $window-width) / 2;
+  $y1: (100% - $window-height) / 2;
+  clip-path: circle($terminal-button-radius at ($x1 + ($terminal-button-radius * 2 + $terminal-button-margin) * $n) ($y1 + $terminal-bar-height / 2));
+}
+
+// Frontend
+$header-height: 6%;
 $mouse-start-x: 78%;
 $mouse-start-y: 24%;
-
-$aspect-ratio: 1/2;
-
 $mouse-base-coords: (
         x1: 0%,
         y1: 0%,
@@ -14,6 +55,8 @@ $mouse-base-coords: (
         x3: 1%,
         y3: 4%
 );
+$logo-height: 4%;
+$logo-width: 4%;
 
 @function mouse-coords($coords, $x, $y) {
   @return polygon(
@@ -23,6 +66,7 @@ $mouse-base-coords: (
   );
 }
 
+// AI
 @mixin neuron($coords) {
   z-index: 1;
 
@@ -93,33 +137,41 @@ $mouse-base-coords: (
     .shard-wrap {
       &:nth-child(1) .shard {
         background-color: rgb(0, 0, 0);
-        clip-path: polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%);
+        @include window-body($terminal-bar-height, false)
       }
 
       &:nth-child(2) .shard {
         background-color: rgb(63, 61, 60);
-        clip-path: polygon(10% 7%, 90% 7%, 90% 10%, 10% 10%);
+        @include window-header($terminal-bar-height, false);
       }
 
       &:nth-child(3) .shard {
         background-color: rgb(252, 64, 66);
-        clip-path: circle(0.65% at 11.5% 8.5%);
+        @include terminal-button(1);
       }
 
       &:nth-child(4) .shard {
         background-color: rgb(224, 192, 76);
-        clip-path: circle(0.65% at 13% 8.5%);
+        @include terminal-button(2);
       }
 
       &:nth-child(5) .shard {
         background-color: rgb(114, 191, 71);
-        clip-path: circle(0.65% at 14.5% 8.5%);
+        @include terminal-button(3);
       }
 
+      // Cursor
       &:nth-child(6) .shard {
         background-color: rgb(240, 240, 240);
         opacity: 0.75;
-        clip-path: polygon(11.5% 12%, 12.5% 12%, 12.5% 16%, 11.5% 16%);
+        $x1: (100% - $window-width) / 2 + 1.5%;
+        $y1: (100% - $window-height) / 2  + $terminal-bar-height + 2%;
+        clip-path: polygon(
+                                ($x1 $y1),
+                                ($x1 + $terminal-cursor-width) $y1,
+                                ($x1 + $terminal-cursor-width) ($y1 + $terminal-cursor-height),
+                                ($x1 ($y1 + $terminal-cursor-height))
+        );
 
         animation: cursor-blink 1.5s step-end infinite 0.5s;
       }
@@ -157,12 +209,12 @@ $mouse-base-coords: (
     .shard-wrap {
       &:nth-child(1) .shard {
         background-color: rgb(192, 192, 192);
-        clip-path: polygon(10% 7%, 10% 13%, 90% 13%, 90% 7%);
+        @include window-header($header-height, true);
       }
 
       &:nth-child(2) .shard {
         background-color: rgb(224, 224, 224);
-        clip-path: polygon(10% 13%, 10% 90%, 90% 90%, 90% 13%);
+        @include window-body($header-height, true);
       }
 
       &:nth-child(3) .shard {
@@ -180,9 +232,17 @@ $mouse-base-coords: (
         clip-path: circle(0 at 0% 0%);
       }
 
+      // Logo
       &:nth-child(6) .shard {
         background-color: rgb(255, 255, 255);
-        clip-path: polygon(12% 8%, 16% 8%, 16% 12%, 12% 12%);
+        $x1: (100% - $window-width) / 2 + 3%;
+        $y1: (100% - $window-height) / 2 + ($header-height - $logo-height) / 2;
+        clip-path: polygon(
+                                ($x1 $y1),
+                                ($x1 + $logo-width) $y1,
+                                ($x1 + $logo-width) ($y1 + $logo-height),
+                                ($x1 ($y1 + $logo-height))
+        );
       }
 
       &:nth-child(7) .shard {
