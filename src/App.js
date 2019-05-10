@@ -1,26 +1,73 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.containerStates = [
+      'backend',
+      'frontend',
+      'ai'
+    ];
+
+    this.nShards = 11;
+
+    this.state = {
+      containerState: this.containerStates[0]
+    };
+
+    this.toState = this.toState.bind(this);
+    this.handleKeypress = this.handleKeypress.bind(this);
+  }
+
+  handleKeypress(event) {
+    if (event.key === 'ArrowRight') {
+      this.toState(true);
+    } else if (event.key === 'ArrowLeft') {
+      this.toState(false);
+    }
+  }
+
+  toState(next = true) {
+    const currentIndex = this.containerStates.indexOf(this.state.containerState);
+    const totStates = this.containerStates.length;
+
+    // Rotate the state index between 0 and the number of states - 1
+    this.setState({
+      containerState: this.containerStates[next ?
+        (currentIndex + 1) % totStates :
+        (currentIndex + totStates - 1) % totStates]
+    });
+  }
+
+  render() {
+    const {containerState} = this.state;
+
+    return (
+      <div className="app">
+        <div className={`shards-container ${this.state.containerState}`}
+             tabIndex={1}
+             onKeyUp={this.handleKeypress}
+             onClick={this.toState}>
+          {
+            // Generate nShards shards
+            [...Array(this.nShards)].map(() => (
+              <div className='shard-wrap'>
+                <div className='shard'></div>
+              </div>
+            ))
+          }
+
+        </div>
+        <div className='caption'>
+          <h2 className={ containerState === 'backend' ? 'up' : 'down' }>I do Backend</h2>
+          <h2 className={ containerState === 'frontend' ? 'up' : 'down' }>I do Frontend</h2>
+          <h2 className={ containerState === 'ai' ? 'up' : 'down' }>I do Artificial Intelligence</h2>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;
