@@ -6,6 +6,7 @@ class App extends React.Component {
     super(props);
 
     this.containerStates = [
+      'intro',
       'backend',
       'frontend',
       'ai'
@@ -52,19 +53,33 @@ class App extends React.Component {
 
     return (
       <div className={`app ${this.state.containerState}`}>
+        <div className='intro-text'>
+          <h1>I am Samuele</h1>
+        </div>
+
+        <div className='intro-shards-container'>
+          {
+            // Generate nShards shards
+            [...Array(this.nShards)].map((_, i) => (
+              <div className='intro-shard-wrap' key={`intro-shard-${i}`}>
+                <div className='intro-shard'></div>
+              </div>
+            ))
+          }
+        </div>
+
         <div className='shards-container'
              tabIndex={1}
              onKeyUp={this.handleKeypress}
              onClick={this.toState}>
           {
             // Generate nShards shards
-            [...Array(this.nShards)].map(() => (
-              <div className='shard-wrap'>
+            [...Array(this.nShards)].map((_, i) => (
+              <div className='shard-wrap' key={`shard-${i}`}>
                 <div className='shard'></div>
               </div>
             ))
           }
-
         </div>
         <div className='caption'>
           <h2 className={ containerState === 'backend' ? 'up' : 'down' }>I do Backend</h2>
