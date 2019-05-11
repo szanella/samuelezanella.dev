@@ -9,7 +9,8 @@ class App extends React.Component {
       'intro',
       'backend',
       'frontend',
-      'ai'
+      'ai',
+      'contacts'
     ];
 
     this.nShards = 11;
@@ -42,10 +43,19 @@ class App extends React.Component {
     });
   }
 
-  componentDidMount() {
+  setHeight() {
     const vh = window.innerHeight * 0.01;
-
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
+  componentDidMount() {
+    this.setHeight();
+    window.addEventListener('resize', this.setHeight);
+
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setHeight);
   }
 
   render() {
@@ -54,10 +64,14 @@ class App extends React.Component {
     return (
       <div className={`app ${this.state.containerState}`}>
         <div className='intro-text'>
-          <h1>I am Samuele</h1>
+          <h1>My name is</h1>
+          <h1 className='name'>Samuele</h1>
+
+          <p>Full Stack Developer based in Italy</p>
+          <p>Currently working for <a target='_blank'  href='https://moku.io'>moku</a></p>
         </div>
 
-        <div className='intro-shards-container'>
+        {/*<div className='intro-shards-container'>
           {
             // Generate nShards shards
             [...Array(this.nShards)].map((_, i) => (
@@ -66,7 +80,7 @@ class App extends React.Component {
               </div>
             ))
           }
-        </div>
+        </div>*/}
 
         <div className='shards-container'
              tabIndex={1}
@@ -82,9 +96,15 @@ class App extends React.Component {
           }
         </div>
         <div className='caption'>
-          <h2 className={ containerState === 'backend' ? 'up' : 'down' }>I do Backend</h2>
-          <h2 className={ containerState === 'frontend' ? 'up' : 'down' }>I do Frontend</h2>
-          <h2 className={ containerState === 'ai' ? 'up' : 'down' }>I do Artificial Intelligence</h2>
+          <h2 className={ containerState === 'backend' ? 'up' : 'down' }>I do <span className='accent'>Backend</span></h2>
+          <h2 className={ containerState === 'frontend' ? 'up' : 'down' }>I do <span className='accent'>Frontend</span></h2>
+          <h2 className={ containerState === 'ai' ? 'up' : 'down' }>I do <span className='accent'>Artificial Intelligence</span></h2>
+        </div>
+
+        <div className='contacts'>
+          <p>Find me here:</p>
+          <p><a target='_blank' href='https://www.linkedin.com/in/samuele-zanella/'>LinkedIn</a></p>
+          <p><a target='_blank' href='https://github.com/szanella'>GitHub</a></p>
         </div>
       </div>
     )
