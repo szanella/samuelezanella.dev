@@ -41,6 +41,12 @@ class App extends React.Component {
     });
   }
 
+  componentDidMount() {
+    const vh = window.innerHeight * 0.01;
+
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+
   render() {
     const {containerState} = this.state;
 

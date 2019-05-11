@@ -95,6 +95,7 @@ $logo-width: 4%;
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   justify-content: center;
   position: relative;
   transition: background-color $transition-duration ease-in;
@@ -219,7 +220,9 @@ $logo-width: 4%;
 
       &:nth-child(3) .shard {
         background-color: rgb(255, 255, 255);
-        clip-path: circle(1.5% at 86.5% 10%);
+        $x1: 100% - (100% - $window-width) / 2 - 4%;
+        $y1: (100% - $window-height) / 2 + $header-height / 2;
+        clip-path: circle(1.5% at $x1 $y1);
       }
 
       &:nth-child(4) .shard {
