@@ -68,7 +68,7 @@ class App extends React.Component {
           <h1 className='name'>Samuele</h1>
 
           <p>Full Stack Developer based in Italy</p>
-          <p>Currently working for <a target='_blank'  href='https://moku.io'>moku</a></p>
+          <p>Currently working for <a target='_blank' href='https://moku.io'>moku</a></p>
         </div>
 
         {/*<div className='intro-shards-container'>
@@ -96,9 +96,18 @@ class App extends React.Component {
           }
         </div>
         <div className='caption'>
-          <h2 className={ containerState === 'backend' ? 'up' : 'down' }>I do <span className='accent'>Backend</span></h2>
-          <h2 className={ containerState === 'frontend' ? 'up' : 'down' }>I do <span className='accent'>Frontend</span></h2>
-          <h2 className={ containerState === 'ai' ? 'up' : 'down' }>I do <span className='accent'>Artificial Intelligence</span></h2>
+          <div className={containerState === 'backend' ? 'up' : 'down'}>
+            <p>up</p>
+            <h2>I do <span className='accent'>Backend</span></h2>
+          </div>
+          <div className={containerState === 'frontend' ? 'up' : 'down'}>
+            <p>up</p>
+            <h2>I do <span className='accent'>Frontend</span></h2>
+          </div>
+          <div className={containerState === 'ai' ? 'up' : 'down'}>
+            <p>up</p>
+            <h2>I do <span className='accent'>Artificial Intelligence</span></h2>
+          </div>
         </div>
 
         <div className='contacts'>
