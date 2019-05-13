@@ -1,9 +1,9 @@
 @import 'colours';
 
 $aspect-ratio: 1/2;
-$transition-stagger: 0.025s;
+$transition-stagger: 0.05s;
 $transition-duration: 0.5s;
-$intro-transition-duration: 0.5s;
+$intro-transition-duration: 0.25s;
 
 :root {
   --full-height: calc(var(--vh, 1vh) * 100);
@@ -167,10 +167,20 @@ $logo-width: 4%;
   }
 
   .intro-text, .contacts {
-    opacity: 0;
     pointer-events: none;
     position: absolute;
-    transition: opacity $intro-transition-duration ease-in;
+    > * {
+      opacity: 0;
+      transform: translateY(75%);
+      transition: all $intro-transition-duration ease-out;
+    }
+    @for $i from 1 through 11 {
+      $delay: $i * $intro-transition-duration;
+      > *:nth-child(#{$i})  {
+        transition-delay: $delay;
+      }
+    }
+    //transition: opacity $intro-transition-duration ease-in;
   }
 
   .intro-text .name {
@@ -182,9 +192,22 @@ $logo-width: 4%;
     @include shards-disappeared;
     background-color: $linen;
     .intro-text {
-      opacity: 1;
       pointer-events: auto;
       z-index: 5;
+
+      .name {
+        animation: emphasis 0.5s linear 1 (3.5 * $intro-transition-duration);
+      }
+
+      > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .contacts > * {
+      transition-delay: 0ms;
+      transition-duration: 100ms;
     }
   }
 
@@ -421,7 +444,7 @@ $logo-width: 4%;
       }
 
       &.down {
-        transform: translateY(200%);
+        transform: translateY(150%);
       }
 
       > * {
@@ -443,9 +466,18 @@ $logo-width: 4%;
     @include shards-disappeared;
     background-color: $isabelline;
     .contacts {
-      opacity: 1;
       pointer-events: auto;
       z-index: 5;
+
+      > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .intro-text > * {
+      transition-delay: 0ms;
+      transition-duration: 100ms;
     }
   }
 }
@@ -489,5 +521,11 @@ $logo-width: 4%;
   }
   100% {
     clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+  }
+}
+
+@keyframes emphasis {
+  50% {
+    transform: scale(1.03);
   }
 }

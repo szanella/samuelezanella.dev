@@ -7,8 +7,8 @@ class App extends React.Component {
 
     this.containerStates = [
       'intro',
-      'backend',
       'frontend',
+      'backend',
       'ai',
       'contacts'
     ];
@@ -16,7 +16,7 @@ class App extends React.Component {
     this.nShards = 11;
 
     this.state = {
-      containerState: this.containerStates[0]
+      containerState: null
     };
 
     this.toState = this.toState.bind(this);
@@ -52,6 +52,7 @@ class App extends React.Component {
     this.setHeight();
     window.addEventListener('resize', this.setHeight);
 
+    setTimeout(() => this.setState({containerState: this.containerStates[0]}), 100);
   }
 
   componentWillUnmount() {
@@ -96,13 +97,13 @@ class App extends React.Component {
           }
         </div>
         <div className='caption'>
-          <div className={containerState === 'backend' ? 'up' : 'down'}>
-            <p>up</p>
-            <h2>I do <span className='accent'>Backend</span></h2>
-          </div>
           <div className={containerState === 'frontend' ? 'up' : 'down'}>
             <p>up</p>
             <h2>I do <span className='accent'>Frontend</span></h2>
+          </div>
+          <div className={containerState === 'backend' ? 'up' : 'down'}>
+            <p>up</p>
+            <h2>I do <span className='accent'>Backend</span></h2>
           </div>
           <div className={containerState === 'ai' ? 'up' : 'down'}>
             <p>up</p>
