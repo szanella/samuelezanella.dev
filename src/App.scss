@@ -1,4 +1,4 @@
-@import 'colours';
+@import 'assets/scss/colours';
 
 $aspect-ratio: 1/2;
 $transition-stagger: 0.05s;
@@ -112,6 +112,7 @@ $logo-width: 4%;
     clip-path: circle(4% at $coords);
   }
 }
+
 @mixin synapse($from, $to) {
   z-index: 0;
 
@@ -137,7 +138,6 @@ $logo-width: 4%;
   position: relative;
   transition: background-color $transition-duration ease-in;
   width: 100vw;
-  z-index: 0;
 
   .shards-container {
     height: calc(100vw * #{$aspect-ratio});
@@ -151,6 +151,26 @@ $logo-width: 4%;
       position: absolute;
       height: 100%;
       width: 100%;
+
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(6),
+      &:nth-child(11) {
+        z-index: 0;
+      }
+
+      &:nth-child(3),
+      &:nth-child(4),
+      &:nth-child(5),
+      &:nth-child(8),
+      &:nth-child(9),
+      &:nth-child(10) {
+        z-index: 1;
+      }
+
+      &:nth-child(7) {
+        z-index: 3;
+      }
 
       .shard {
         height: 100%;
@@ -170,12 +190,15 @@ $logo-width: 4%;
   .intro-text, .contacts {
     pointer-events: none;
     position: absolute;
+    z-index: 5;
+
     > * {
       opacity: 0;
-      transition: all 100ms ease-out;
+      transition-duration: 100ms;
+      transition-property: opacity, transform;
+      transition-timing-function: ease-out;
       transform: translateY(75%);
     }
-    //transition: opacity $intro-transition-duration ease-in;
   }
 
   .intro-text .name {
@@ -183,12 +206,23 @@ $logo-width: 4%;
     margin-bottom: 2vh;
   }
 
+  .tutorial {
+    animation: tutorial 1.5s step-end 2 2s, tutorial-fade-out 0.5s ease-out 1 5s;
+    animation-fill-mode: forwards;
+    bottom: 15%;
+    height: auto;
+    opacity: 0;
+    position: absolute;
+    right: 25%;
+    width: calc(var(--vh, 1vh) * 6);
+  }
+
   &.intro {
     @include shards-disappeared;
     background-color: $linen;
+
     .intro-text {
       pointer-events: auto;
-      z-index: 5;
 
       .name {
         animation: emphasis 0.5s linear 1 (3.5 * $intro-transition-duration);
@@ -199,9 +233,10 @@ $logo-width: 4%;
         transition-duration: $intro-transition-duration;
         transform: translateY(0);
       }
+
       @for $i from 1 through 4 {
         $delay: $i * $intro-transition-duration;
-        > *:nth-child(#{$i})  {
+        > *:nth-child(#{$i}) {
           transition-delay: $delay;
         }
       }
@@ -462,18 +497,19 @@ $logo-width: 4%;
   &.contacts {
     @include shards-disappeared;
     background-color: $isabelline;
+
     .contacts {
       pointer-events: auto;
-      z-index: 5;
 
       > * {
         opacity: 1;
         transition-duration: $intro-transition-duration;
         transform: translateY(0);
       }
+
       @for $i from 1 through 4 {
         $delay: $i * $intro-transition-duration;
-        > *:nth-child(#{$i})  {
+        > *:nth-child(#{$i}) {
           transition-delay: $delay;
         }
       }
@@ -524,7 +560,44 @@ $logo-width: 4%;
 }
 
 @keyframes emphasis {
+  0% {
+    transform: scale(1);
+  }
   50% {
     transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes tutorial {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-4px);
+  }
+  30% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes tutorial-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
