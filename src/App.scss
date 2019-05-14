@@ -133,15 +133,16 @@ $logo-width: 4%;
   height: calc(92vh);
   height: var(--full-height);
   justify-content: center;
+  outline: none;
   position: relative;
   transition: background-color $transition-duration ease-in;
   width: 100vw;
+  z-index: 0;
 
   .shards-container {
     height: calc(100vw * #{$aspect-ratio});
     max-height: var(--shards-container-height);
     max-width: 100vw;
-    outline: none;
     position: absolute;
     width: calc(var(--shards-container-height) / #{$aspect-ratio});
 
