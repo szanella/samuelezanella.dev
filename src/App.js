@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import ExtLink from './ExtLink';
+import handCursor from './assets/svg/hand-cursor.svg';
 
 class App extends React.Component {
   constructor(props) {
@@ -77,17 +78,6 @@ class App extends React.Component {
           <p>Currently working for <ExtLink href='https://moku.io'>moku</ExtLink></p>
         </div>
 
-        {/*<div className='intro-shards-container'>
-          {
-            // Generate nShards shards
-            [...Array(this.nShards)].map((_, i) => (
-              <div className='intro-shard-wrap' key={`intro-shard-${i}`}>
-                <div className='intro-shard'></div>
-              </div>
-            ))
-          }
-        </div>*/}
-
         <div className='shards-container'>
           {
             // Generate nShards shards
@@ -119,6 +109,8 @@ class App extends React.Component {
           <p><ExtLink href='https://github.com/szanella'>GitHub</ExtLink></p>
           <p><ExtLink href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</ExtLink></p>
         </div>
+        <img className='tutorial' src={handCursor} />
+
       </div>
     )
   }
