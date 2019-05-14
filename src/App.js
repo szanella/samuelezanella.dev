@@ -69,7 +69,7 @@ class App extends React.Component {
           <h1 className='name'>Samuele</h1>
 
           <p>Full Stack Developer based in Italy</p>
-          <p>Currently working for <a target='_blank' href='https://moku.io'>moku</a></p>
+          <p>Currently working for <a target='_blank' rel='noopener noreferrer' href='https://moku.io'>moku</a></p>
         </div>
 
         {/*<div className='intro-shards-container'>
@@ -113,8 +113,9 @@ class App extends React.Component {
 
         <div className='contacts'>
           <p>Find me here:</p>
-          <p><a target='_blank' href='https://www.linkedin.com/in/samuele-zanella/'>LinkedIn</a></p>
-          <p><a target='_blank' href='https://github.com/szanella'>GitHub</a></p>
+          <p><a target='_blank' rel='noopener noreferrer' href='https://www.linkedin.com/in/samuele-zanella/'>LinkedIn</a></p>
+          <p><a target='_blank' rel='noopener noreferrer' href='https://github.com/szanella'>GitHub</a></p>
+          <p><a href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</a></p>
         </div>
       </div>
     )

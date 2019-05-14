@@ -470,7 +470,7 @@ $logo-width: 4%;
         transition-duration: $intro-transition-duration;
         transform: translateY(0);
       }
-      @for $i from 1 through 3 {
+      @for $i from 1 through 4 {
         $delay: $i * $intro-transition-duration;
         > *:nth-child(#{$i})  {
           transition-delay: $delay;
