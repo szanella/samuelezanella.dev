@@ -7,8 +7,8 @@ class App extends React.Component {
 
     this.containerStates = [
       'intro',
-      'backend',
       'frontend',
+      'backend',
       'ai',
       'contacts'
     ];
@@ -16,7 +16,7 @@ class App extends React.Component {
     this.nShards = 11;
 
     this.state = {
-      containerState: this.containerStates[0]
+      containerState: null
     };
 
     this.toState = this.toState.bind(this);
@@ -52,6 +52,7 @@ class App extends React.Component {
     this.setHeight();
     window.addEventListener('resize', this.setHeight);
 
+    setTimeout(() => this.setState({containerState: this.containerStates[0]}), 100);
   }
 
   componentWillUnmount() {
@@ -68,7 +69,7 @@ class App extends React.Component {
           <h1 className='name'>Samuele</h1>
 
           <p>Full Stack Developer based in Italy</p>
-          <p>Currently working for <a target='_blank' href='https://moku.io'>moku</a></p>
+          <p>Currently working for <a target='_blank' rel='noopener noreferrer' href='https://moku.io'>moku</a></p>
         </div>
 
         {/*<div className='intro-shards-container'>
@@ -96,13 +97,13 @@ class App extends React.Component {
           }
         </div>
         <div className='caption'>
-          <div className={containerState === 'backend' ? 'up' : 'down'}>
-            <p>up</p>
-            <h2>I do <span className='accent'>Backend</span></h2>
-          </div>
           <div className={containerState === 'frontend' ? 'up' : 'down'}>
             <p>up</p>
             <h2>I do <span className='accent'>Frontend</span></h2>
+          </div>
+          <div className={containerState === 'backend' ? 'up' : 'down'}>
+            <p>up</p>
+            <h2>I do <span className='accent'>Backend</span></h2>
           </div>
           <div className={containerState === 'ai' ? 'up' : 'down'}>
             <p>up</p>
@@ -112,8 +113,9 @@ class App extends React.Component {
 
         <div className='contacts'>
           <p>Find me here:</p>
-          <p><a target='_blank' href='https://www.linkedin.com/in/samuele-zanella/'>LinkedIn</a></p>
-          <p><a target='_blank' href='https://github.com/szanella'>GitHub</a></p>
+          <p><a target='_blank' rel='noopener noreferrer' href='https://www.linkedin.com/in/samuele-zanella/'>LinkedIn</a></p>
+          <p><a target='_blank' rel='noopener noreferrer' href='https://github.com/szanella'>GitHub</a></p>
+          <p><a href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</a></p>
         </div>
       </div>
     )

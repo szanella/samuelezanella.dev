@@ -1,9 +1,9 @@
 @import 'colours';
 
 $aspect-ratio: 1/2;
-$transition-stagger: 0.025s;
+$transition-stagger: 0.05s;
 $transition-duration: 0.5s;
-$intro-transition-duration: 0.5s;
+$intro-transition-duration: 0.25s;
 
 :root {
   --full-height: calc(var(--vh, 1vh) * 100);
@@ -167,10 +167,14 @@ $logo-width: 4%;
   }
 
   .intro-text, .contacts {
-    opacity: 0;
     pointer-events: none;
     position: absolute;
-    transition: opacity $intro-transition-duration ease-in;
+    > * {
+      opacity: 0;
+      transition: all 100ms ease-out;
+      transform: translateY(75%);
+    }
+    //transition: opacity $intro-transition-duration ease-in;
   }
 
   .intro-text .name {
@@ -182,9 +186,24 @@ $logo-width: 4%;
     @include shards-disappeared;
     background-color: $linen;
     .intro-text {
-      opacity: 1;
       pointer-events: auto;
       z-index: 5;
+
+      .name {
+        animation: emphasis 0.5s linear 1 (3.5 * $intro-transition-duration);
+      }
+
+      > * {
+        opacity: 1;
+        transition-duration: $intro-transition-duration;
+        transform: translateY(0);
+      }
+      @for $i from 1 through 4 {
+        $delay: $i * $intro-transition-duration;
+        > *:nth-child(#{$i})  {
+          transition-delay: $delay;
+        }
+      }
     }
   }
 
@@ -421,7 +440,7 @@ $logo-width: 4%;
       }
 
       &.down {
-        transform: translateY(200%);
+        transform: translateY(150%);
       }
 
       > * {
@@ -443,9 +462,20 @@ $logo-width: 4%;
     @include shards-disappeared;
     background-color: $isabelline;
     .contacts {
-      opacity: 1;
       pointer-events: auto;
       z-index: 5;
+
+      > * {
+        opacity: 1;
+        transition-duration: $intro-transition-duration;
+        transform: translateY(0);
+      }
+      @for $i from 1 through 4 {
+        $delay: $i * $intro-transition-duration;
+        > *:nth-child(#{$i})  {
+          transition-delay: $delay;
+        }
+      }
     }
   }
 }
@@ -489,5 +519,11 @@ $logo-width: 4%;
   }
   100% {
     clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+  }
+}
+
+@keyframes emphasis {
+  50% {
+    transform: scale(1.03);
   }
 }
