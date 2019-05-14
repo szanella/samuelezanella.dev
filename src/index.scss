@@ -29,6 +29,7 @@ p {
 a {
   border-bottom: 1px solid black;
   text-decoration: none;
+  z-index: 1;
 
   &:link, &:visited {
     color: inherit;

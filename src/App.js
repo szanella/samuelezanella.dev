@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.scss';
+import ExtLink from './ExtLink';
 
 class App extends React.Component {
   constructor(props) {
@@ -63,13 +64,17 @@ class App extends React.Component {
     const {containerState} = this.state;
 
     return (
-      <div className={`app ${this.state.containerState}`}>
+      <div className={`app ${this.state.containerState}`}
+           ref={appDiv => appDiv && appDiv.focus()}
+           tabIndex={1}
+           onKeyUp={this.handleKeypress}
+           onClick={this.toState}>
         <div className='intro-text'>
           <h1>My name is</h1>
           <h1 className='name'>Samuele</h1>
 
           <p>Full Stack Developer based in Italy</p>
-          <p>Currently working for <a target='_blank' rel='noopener noreferrer' href='https://moku.io'>moku</a></p>
+          <p>Currently working for <ExtLink href='https://moku.io'>moku</ExtLink></p>
         </div>
 
         {/*<div className='intro-shards-container'>
@@ -83,10 +88,7 @@ class App extends React.Component {
           }
         </div>*/}
 
-        <div className='shards-container'
-             tabIndex={1}
-             onKeyUp={this.handleKeypress}
-             onClick={this.toState}>
+        <div className='shards-container'>
           {
             // Generate nShards shards
             [...Array(this.nShards)].map((_, i) => (
@@ -113,9 +115,9 @@ class App extends React.Component {
 
         <div className='contacts'>
           <p>Find me here:</p>
-          <p><a target='_blank' rel='noopener noreferrer' href='https://www.linkedin.com/in/samuele-zanella/'>LinkedIn</a></p>
-          <p><a target='_blank' rel='noopener noreferrer' href='https://github.com/szanella'>GitHub</a></p>
-          <p><a href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</a></p>
+          <p><ExtLink href='https://www.linkedin.com/in/samuele-zanella/'>LinkedIn</ExtLink></p>
+          <p><ExtLink href='https://github.com/szanella'>GitHub</ExtLink></p>
+          <p><ExtLink href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</ExtLink></p>
         </div>
       </div>
     )
