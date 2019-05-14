@@ -112,6 +112,7 @@ $logo-width: 4%;
     clip-path: circle(4% at $coords);
   }
 }
+
 @mixin synapse($from, $to) {
   z-index: 0;
 
@@ -137,7 +138,6 @@ $logo-width: 4%;
   position: relative;
   transition: background-color $transition-duration ease-in;
   width: 100vw;
-  z-index: 0;
 
   .shards-container {
     height: calc(100vw * #{$aspect-ratio});
@@ -151,6 +151,26 @@ $logo-width: 4%;
       position: absolute;
       height: 100%;
       width: 100%;
+
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(6),
+      &:nth-child(11) {
+        z-index: 0;
+      }
+
+      &:nth-child(3),
+      &:nth-child(4),
+      &:nth-child(5),
+      &:nth-child(8),
+      &:nth-child(9),
+      &:nth-child(10) {
+        z-index: 1;
+      }
+
+      &:nth-child(7) {
+        z-index: 3;
+      }
 
       .shard {
         height: 100%;
@@ -170,11 +190,13 @@ $logo-width: 4%;
   .intro-text, .contacts {
     pointer-events: none;
     position: absolute;
+
     > * {
       opacity: 0;
-      transition: all 100ms ease-out;
+      transition: opacity, transform 100ms ease-out;
       transform: translateY(75%);
     }
+
     //transition: opacity $intro-transition-duration ease-in;
   }
 
@@ -186,6 +208,7 @@ $logo-width: 4%;
   &.intro {
     @include shards-disappeared;
     background-color: $linen;
+
     .intro-text {
       pointer-events: auto;
       z-index: 5;
@@ -199,9 +222,10 @@ $logo-width: 4%;
         transition-duration: $intro-transition-duration;
         transform: translateY(0);
       }
+
       @for $i from 1 through 4 {
         $delay: $i * $intro-transition-duration;
-        > *:nth-child(#{$i})  {
+        > *:nth-child(#{$i}) {
           transition-delay: $delay;
         }
       }
@@ -462,6 +486,7 @@ $logo-width: 4%;
   &.contacts {
     @include shards-disappeared;
     background-color: $isabelline;
+
     .contacts {
       pointer-events: auto;
       z-index: 5;
@@ -471,9 +496,10 @@ $logo-width: 4%;
         transition-duration: $intro-transition-duration;
         transform: translateY(0);
       }
+
       @for $i from 1 through 4 {
         $delay: $i * $intro-transition-duration;
-        > *:nth-child(#{$i})  {
+        > *:nth-child(#{$i}) {
           transition-delay: $delay;
         }
       }
