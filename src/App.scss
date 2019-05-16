@@ -185,6 +185,24 @@ $logo-width: 4%;
         }
       }
     }
+
+    .terminal-text {
+      color: #FFFFFF;
+      font-family: 'Inconsolata', monospace;
+      height: 72%;
+      left: 9%;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 13%;
+      width: 82%;
+      z-index: 5;
+
+      p {
+        font-size: calc(var(--shards-container-height) / 100 * 3);
+        line-height: calc(var(--shards-container-height) / 100 * 4);
+      }
+    }
   }
 
   .intro-text, .contacts {
@@ -312,6 +330,10 @@ $logo-width: 4%;
         background-color: rgba(0, 0, 0, 0);
         clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
       }
+    }
+
+    .terminal-text {
+      opacity: 1;
     }
   }
 

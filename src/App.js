@@ -2,27 +2,111 @@ import React from 'react';
 import './App.scss';
 import ExtLink from './ExtLink';
 import handCursor from './assets/svg/hand-cursor.svg';
+import {concatMap, delay, scan} from 'rxjs/operators';
+import {of, concat} from 'rxjs';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.containerStates = [
+      'backend',
       'intro',
       'frontend',
-      'backend',
       'ai',
       'contacts'
     ];
 
     this.nShards = 11;
 
+    this.terminalSub = null;
+    this.terminalPrefix = (folder = '~') => `samuelezanella:${folder} user $ `;
+    this.terminalOutput = [
+      {
+        prefix: this.terminalPrefix(),
+        command: 'cd Repos/my_rails_project'
+      },
+      {
+        prefix: this.terminalPrefix('my_rails_project'),
+        command: 'rails c'
+      },
+      {
+        prefix: '2.6.3 :001 > ',
+        command: 'MyModel.create(column1: "val")'
+      },
+      {
+        output: '=> #<MyModel id: 1, column1: "val">'
+      },
+      {
+        prefix: '2.6.3 :002 > ',
+        command: 'exit'
+      },
+      {
+        prefix: this.terminalPrefix('my_rails_project')
+      }
+    ];
+
+    this.terminalLines = [];
     this.state = {
-      containerState: null
+      containerState: null,
+      terminalLines: []
     };
 
     this.toState = this.toState.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.containerState === 'backend') {
+      if (!this.terminalSub) {
+        this.terminalSub = of(...this.terminalOutput).pipe(
+          delay(750),
+          concatMap(line => {
+            if (line.output) {
+              return of({newLine: line.output});
+            } else {
+              let chars = [];
+              if (line.command) {
+                chars = [...line.command];
+              }
+              return concat(
+                of({newLine: line.prefix}),
+                of(...chars).pipe(
+                  delay(Math.random() * 500 + 750),
+                  concatMap(char => of(char).pipe(
+                    delay(Math.random() * 100 + 50)
+                  ))
+                )
+              )
+
+            }
+          }),
+          scan((acc, val) => {
+            if (val.newLine) {
+              return [...acc, val.newLine];
+            } else {
+              return [
+                ...acc.slice(0, acc.length - 1),
+                acc[acc.length - 1] + val
+              ];
+            }
+          }, [])
+        ).subscribe(terminalLines => {
+          this.setState({
+            terminalLines
+          });
+        });
+      }
+    } else {
+      if (this.terminalSub) {
+        this.terminalSub.unsubscribe();
+        this.terminalSub = null;
+
+        this.setState({
+          terminalLines: []
+        });
+      }
+    }
   }
 
   handleKeypress(event) {
@@ -87,6 +171,11 @@ class App extends React.Component {
               </div>
             ))
           }
+          <div className='terminal-text'>
+            {this.state.terminalLines.map((line, lineIndex) => (
+              <p key={`terminal-line-${lineIndex}`}>{line}</p>
+            ))}
+          </div>
         </div>
         <div className='caption'>
           <div className={containerState === 'frontend' ? 'up' : 'down'}>
@@ -109,7 +198,7 @@ class App extends React.Component {
           <p><ExtLink href='https://github.com/szanella'>GitHub</ExtLink></p>
           <p><ExtLink href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</ExtLink></p>
         </div>
-        <img className='tutorial' src={handCursor} />
+        <img className='tutorial' src={handCursor}/>
 
       </div>
     )
