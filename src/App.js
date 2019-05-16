@@ -10,9 +10,9 @@ class App extends React.Component {
     super(props);
 
     this.containerStates = [
-      'backend',
       'intro',
       'frontend',
+      'backend',
       'ai',
       'contacts'
     ];
