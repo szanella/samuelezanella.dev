@@ -80,9 +80,9 @@ class App extends React.Component {
               return concat(
                 of({newLine: line.prefix}),
                 of(...chars).pipe(
-                  delay(Math.random() * 250 + 200),
+                  delay(Math.random() * 300 + 200),
                   concatMap(char => of(char).pipe(
-                    delay(Math.random() * 50 + 25)
+                    delay(Math.random() * 75 + 25)
                   ))
                 )
               )
