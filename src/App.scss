@@ -199,8 +199,8 @@ $logo-width: 4%;
       z-index: 5;
 
       p {
-        font-size: calc(var(--shards-container-height) / 100 * 3);
-        line-height: calc(var(--shards-container-height) / 100 * 4);
+        font-size: 2.5vmin;
+        line-height: 3.5vmin;
       }
     }
   }
@@ -292,18 +292,20 @@ $logo-width: 4%;
 
       // Cursor
       &:nth-child(6) .shard {
-        background-color: rgb(240, 240, 240);
-        opacity: 0.75;
-        $x1: (100% - $window-width) / 2 + 1.5%;
-        $y1: (100% - $window-height) / 2  + $terminal-bar-height + 2%;
-        clip-path: polygon(
-                                ($x1 $y1),
-                                ($x1 + $terminal-cursor-width) $y1,
-                                ($x1 + $terminal-cursor-width) ($y1 + $terminal-cursor-height),
-                                ($x1 ($y1 + $terminal-cursor-height))
-        );
-
-        animation: cursor-blink 1.5s step-end infinite 0.5s;
+        //background-color: rgb(240, 240, 240);
+        //opacity: 0.75;
+        //$x1: (100% - $window-width) / 2 + 1.5%;
+        //$y1: (100% - $window-height) / 2  + $terminal-bar-height + 2%;
+        //clip-path: polygon(
+        //                        ($x1 $y1),
+        //                        ($x1 + $terminal-cursor-width) $y1,
+        //                        ($x1 + $terminal-cursor-width) ($y1 + $terminal-cursor-height),
+        //                        ($x1 ($y1 + $terminal-cursor-height))
+        //);
+        //
+        //animation: cursor-blink 1.5s step-end infinite 0.5s;
+        background-color: rgba(0, 0, 0, 0);
+        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
       }
 
       &:nth-child(7) .shard {
