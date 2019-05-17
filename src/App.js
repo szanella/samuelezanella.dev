@@ -60,7 +60,7 @@ class App extends React.Component {
     if (this.state.containerState === 'backend') {
       if (!this.terminalSub) {
         this.terminalSub = of(...this.terminalOutput).pipe(
-          delay(750),
+          delay(600),
           concatMap(line => {
             if (line.output) {
               return of({newLine: line.output});
@@ -72,9 +72,9 @@ class App extends React.Component {
               return concat(
                 of({newLine: line.prefix}),
                 of(...chars).pipe(
-                  delay(Math.random() * 500 + 500),
+                  delay(Math.random() * 250 + 200),
                   concatMap(char => of(char).pipe(
-                    delay(Math.random() * 100 + 50)
+                    delay(Math.random() * 75 + 25)
                   ))
                 )
               )
