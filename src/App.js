@@ -32,13 +32,20 @@ class App extends React.Component {
       },
       {
         prefix: '2.6.3 :001 > ',
-        command: 'MyModel.create(column1: "val")'
+        command: 'rick = User.create(name: "Rick Sanchez")'
       },
       {
-        output: '=> #<MyModel id: 1, column1: "val">'
+        output: '=> #<User id: 1, name: "Rick Sanchez">'
       },
       {
         prefix: '2.6.3 :002 > ',
+        command: 'rick.greet'
+      },
+      {
+        output: '=> "Wubba Lubba dub-dub!"'
+      },
+      {
+        prefix: '2.6.3 :003 > ',
         command: 'exit'
       },
       {
@@ -74,7 +81,7 @@ class App extends React.Component {
                 of(...chars).pipe(
                   delay(Math.random() * 250 + 200),
                   concatMap(char => of(char).pipe(
-                    delay(Math.random() * 75 + 25)
+                    delay(Math.random() * 50 + 25)
                   ))
                 )
               )
