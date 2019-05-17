@@ -56,7 +56,8 @@ class App extends React.Component {
     this.terminalLines = [];
     this.state = {
       containerState: null,
-      terminalLines: []
+      terminalLines: [],
+      tutorialHidden: false
     };
 
     this.toState = this.toState.bind(this);
@@ -132,7 +133,8 @@ class App extends React.Component {
     this.setState({
       containerState: this.containerStates[next ?
         (currentIndex + 1) % totStates :
-        (currentIndex + totStates - 1) % totStates]
+        (currentIndex + totStates - 1) % totStates],
+      tutorialHidden: true
     });
   }
 
@@ -153,10 +155,10 @@ class App extends React.Component {
   }
 
   render() {
-    const {containerState} = this.state;
+    const {containerState, terminalLines, tutorialHidden} = this.state;
 
     return (
-      <div className={`app ${this.state.containerState}`}
+      <div className={`app ${containerState}`}
            ref={appDiv => appDiv && appDiv.focus()}
            tabIndex={1}
            onKeyUp={this.handleKeypress}
@@ -179,7 +181,7 @@ class App extends React.Component {
             ))
           }
           <div className='terminal-text'>
-            {this.state.terminalLines.map((line, lineIndex) => (
+            {terminalLines.map((line, lineIndex) => (
               <p key={`terminal-line-${lineIndex}`}>{line}</p>
             ))}
           </div>
@@ -205,7 +207,7 @@ class App extends React.Component {
           <p><ExtLink href='https://github.com/szanella'>GitHub</ExtLink></p>
           <p><ExtLink href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</ExtLink></p>
         </div>
-        <img className='tutorial' src={handCursor}/>
+        <img className={`tutorial ${tutorialHidden ? 'hidden' : ''}`} src={handCursor}/>
 
       </div>
     )
