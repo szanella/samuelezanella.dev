@@ -230,9 +230,15 @@ $logo-width: 4%;
     bottom: 15%;
     height: auto;
     opacity: 0;
+    pointer-events: none;
     position: absolute;
     right: 25%;
     width: calc(var(--vh, 1vh) * 6);
+
+    &.hidden {
+      animation: unset;
+      opacity: 0;
+    }
   }
 
   &.intro {
