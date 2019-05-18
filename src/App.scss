@@ -92,8 +92,8 @@ $mouse-base-coords: (
         x3: 1%,
         y3: 4%
 );
-$logo-height: 4%;
-$logo-width: 4%;
+$search-bar-height: 4%;
+$search-bar-width: 20%;
 
 @function mouse-coords($coords, $x, $y) {
   @return polygon(
@@ -174,8 +174,10 @@ $logo-width: 4%;
 
       .shard {
         height: 100%;
+        transition-duration: $transition-duration;
+        transition-property: background-color, clip-path, opacity;
+        transition-timing-function: ease-in-out;
         width: 100%;
-        transition: all $transition-duration ease-in-out;
       }
 
       @for $i from 1 through 11 {
@@ -360,10 +362,22 @@ $logo-width: 4%;
       }
 
       &:nth-child(3) .shard {
-        background-color: rgb(255, 255, 255);
         $x1: 100% - (100% - $window-width) / 2 - 4%;
         $y1: (100% - $window-height) / 2 + $header-height / 2;
+        background-color: rgb(255, 255, 255);
         clip-path: circle(1.5% at $x1 $y1);
+        &:after {
+          background-image: url('assets/svg/person.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 55%;
+          content: ' ';
+          height: 6%;
+          left: $x1 - 1.5%;
+          position: absolute;
+          top: $y1 - 3%;
+          width: 3%;
+        }
       }
 
       &:nth-child(4) .shard {
@@ -376,19 +390,32 @@ $logo-width: 4%;
         clip-path: circle(0 at 0% 0%);
       }
 
-      // Logo
+      // Search bar
       &:nth-child(6) .shard {
         background-color: rgb(255, 255, 255);
-        $x1: (100% - $window-width) / 2 + 3%;
-        $y1: (100% - $window-height) / 2 + ($header-height - $logo-height) / 2;
+        $x1: (100% - $window-width) / 2 + 8%;
+        $y1: (100% - $window-height) / 2 + ($header-height - $search-bar-height) / 2;
         clip-path: polygon(
                                 ($x1 $y1),
-                                ($x1 + $logo-width) $y1,
-                                ($x1 + $logo-width) ($y1 + $logo-height),
-                                ($x1 ($y1 + $logo-height))
+                                ($x1 + $search-bar-width) $y1,
+                                ($x1 + $search-bar-width) ($y1 + $search-bar-height),
+                                ($x1 ($y1 + $search-bar-height))
         );
+        &:after {
+          background-image: url('assets/svg/search.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 60%;
+          content: ' ';
+          height: $search-bar-height;
+          left: $x1 + $search-bar-width - ($search-bar-height / 2);
+          position: absolute;
+          top: $y1;
+          width: $search-bar-height / 2;
+        }
       }
 
+      // Mouse
       &:nth-child(7) .shard {
         background-color: rgb(0, 0, 0);
         clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
@@ -607,13 +634,13 @@ $logo-width: 4%;
     transform: translateY(0);
   }
   15% {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
   }
   30% {
     transform: translateY(0);
   }
   45% {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
   }
   60% {
     transform: translateY(0);
