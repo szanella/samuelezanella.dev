@@ -313,7 +313,7 @@ $search-bar-width: 20%;
         //
         //animation: cursor-blink 1.5s step-end infinite 0.5s;
         background-color: rgba(0, 0, 0, 0);
-        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+        clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
       }
 
       &:nth-child(7) .shard {
@@ -362,7 +362,7 @@ $search-bar-width: 20%;
       }
 
       &:nth-child(3) .shard {
-        $x1: 100% - (100% - $window-width) / 2 - 4%;
+        $x1: 100% - (100% - $window-width) / 2 - 3.5%;
         $y1: (100% - $window-height) / 2 + $header-height / 2;
         background-color: rgb(255, 255, 255);
         clip-path: circle(1.5% at $x1 $y1);
@@ -381,8 +381,22 @@ $search-bar-width: 20%;
       }
 
       &:nth-child(4) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: circle(0 at 0% 0%);
+        $x1: (100% - $window-width) / 2 + 3.5%;
+        $y1: (100% - $window-height) / 2 + $header-height / 2;
+        background-color: rgb(255, 255, 255);
+        clip-path: circle(1.5% at $x1 $y1);
+        &:after {
+          background-image: url('assets/svg/whatshot.svg');
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: 55%;
+          content: ' ';
+          height: 6%;
+          left: $x1 - 1.5%;
+          position: absolute;
+          top: $y1 - 3%;
+          width: 3%;
+        }
       }
 
       &:nth-child(5) .shard {
@@ -393,7 +407,7 @@ $search-bar-width: 20%;
       // Search bar
       &:nth-child(6) .shard {
         background-color: rgb(255, 255, 255);
-        $x1: (100% - $window-width) / 2 + 8%;
+        $x1: (100% - $window-width) / 2 + 7%;
         $y1: (100% - $window-height) / 2 + ($header-height - $search-bar-height) / 2;
         clip-path: polygon(
                                 ($x1 $y1),
