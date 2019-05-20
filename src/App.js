@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.scss';
-import ExtLink from './ExtLink';
+import ExtLink from './components/ExtLink';
 import handCursor from './assets/svg/hand-cursor.svg';
 import {concatMap, delay, scan} from 'rxjs/operators';
 import {of, concat} from 'rxjs';
+import Caption from './components/Caption';
 
 class App extends React.Component {
   constructor(props) {
@@ -187,18 +188,19 @@ class App extends React.Component {
           </div>
         </div>
         <div className='caption'>
-          <div className={containerState === 'frontend' ? 'up' : 'down'}>
-            <p>up</p>
-            <h2>I do <span className='accent'>Frontend</span></h2>
-          </div>
-          <div className={containerState === 'backend' ? 'up' : 'down'}>
-            <p>up</p>
-            <h2>I do <span className='accent'>Backend</span></h2>
-          </div>
-          <div className={containerState === 'ai' ? 'up' : 'down'}>
-            <p>up</p>
-            <h2>I do <span className='accent'>Artificial Intelligence</span></h2>
-          </div>
+          <Caption shown={containerState === 'frontend'}
+                   predicate='do'
+                   subject='Frontend'>
+            <p>I love creating sleek user interfaces</p>
+          </Caption>
+          <Caption shown={containerState === 'backend'}
+                   predicate='do'
+                   subject='Backend'>
+          </Caption>
+          <Caption shown={containerState === 'ai'}
+                   predicate='love'
+                   subject='Artificial Intelligence'>
+          </Caption>
         </div>
 
         <div className='contacts'>
@@ -208,7 +210,6 @@ class App extends React.Component {
           <p><ExtLink href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</ExtLink></p>
         </div>
         <img className={`tutorial ${tutorialHidden ? 'hidden' : ''}`} src={handCursor}/>
-
       </div>
     )
   }

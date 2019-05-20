@@ -352,12 +352,14 @@ $search-bar-width: 20%;
 
     .shard-wrap {
       &:nth-child(1) .shard {
-        background-color: rgb(192, 192, 192);
+        //background-color: $cerulean-frost;
+        background-color: $wild-blue-yonder;
         @include window-header($header-height, true);
       }
 
       &:nth-child(2) .shard {
-        background-color: rgb(224, 224, 224);
+        //background-color: rgb(224, 224, 224);
+        background-color: #FFFFFF;
         @include window-body($header-height, true);
       }
 
@@ -366,6 +368,7 @@ $search-bar-width: 20%;
         $y1: (100% - $window-height) / 2 + $header-height / 2;
         background-color: rgb(255, 255, 255);
         clip-path: circle(1.5% at $x1 $y1);
+
         &:after {
           background-image: url('assets/svg/person.svg');
           background-position: center center;
@@ -385,6 +388,7 @@ $search-bar-width: 20%;
         $y1: (100% - $window-height) / 2 + $header-height / 2;
         background-color: rgb(255, 255, 255);
         clip-path: circle(1.5% at $x1 $y1);
+
         &:after {
           background-image: url('assets/svg/whatshot.svg');
           background-position: center center;
