@@ -58,11 +58,13 @@ class App extends React.Component {
     this.state = {
       containerState: null,
       terminalLines: [],
-      tutorialHidden: false
+      tutorialHidden: false,
+      captionExpanded: false
     };
 
     this.toState = this.toState.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
+    this.toggleCaptionExpanded = this.toggleCaptionExpanded.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -135,7 +137,17 @@ class App extends React.Component {
       containerState: this.containerStates[next ?
         (currentIndex + 1) % totStates :
         (currentIndex + totStates - 1) % totStates],
-      tutorialHidden: true
+      tutorialHidden: true,
+      captionExpanded: false
+    });
+  }
+
+  toggleCaptionExpanded(event) {
+    event.stopPropagation();
+    const {captionExpanded} = this.state;
+
+    this.setState({
+      captionExpanded: !captionExpanded
     });
   }
 
@@ -187,19 +199,22 @@ class App extends React.Component {
             ))}
           </div>
         </div>
-        <div className='caption'>
+        <div className={`caption ${this.state.captionExpanded ? 'expanded' : ''}`}>
           <Caption shown={containerState === 'frontend'}
                    predicate='do'
-                   subject='Frontend'>
+                   subject='Frontend'
+                   onClick={this.toggleCaptionExpanded}>
             <p>I love creating sleek user interfaces</p>
           </Caption>
           <Caption shown={containerState === 'backend'}
                    predicate='do'
-                   subject='Backend'>
+                   subject='Backend'
+                   onClick={this.toggleCaptionExpanded}>
           </Caption>
           <Caption shown={containerState === 'ai'}
                    predicate='love'
-                   subject='Artificial Intelligence'>
+                   subject='Artificial Intelligence'
+                   onClick={this.toggleCaptionExpanded}>
           </Caption>
         </div>
 

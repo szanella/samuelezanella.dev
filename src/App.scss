@@ -533,9 +533,11 @@ $search-bar-width: 20%;
     overflow: hidden;
     position: absolute;
     width: 100vw;
+    z-index: 6;
 
     & > div {
       align-items: center;
+      cursor: pointer;
       display: flex;
       flex-direction: column;
       height: 100%;
@@ -562,10 +564,21 @@ $search-bar-width: 20%;
         margin-bottom: 0.75vh;
       }
 
-      // TODO: remove
-      p {
-        display: none;
+      .caption-arrow {
+        background-image: url('assets/svg/expand.svg');
+        background-position: center;
+        background-size: 160%;
+        flex: 0 0 auto;
+        height: 22px;
+        position: absolute;
+        top: 0;
+        transition: transform $transition-duration ease-in;
+        width: 22px;
       }
+    }
+
+    &.expanded .caption-arrow {
+      transform: rotateX(180deg);
     }
   }
 
