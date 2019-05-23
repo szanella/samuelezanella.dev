@@ -217,7 +217,7 @@ class App extends React.Component {
                  predicate='do'
                  subject='Frontend'
                  onClick={this.toggleCaptionExpanded}>
-          <p>I love creating sleek user interfaces</p>
+          {/*<p>I love creating sleek user interfaces</p>*/}
         </Caption>
         <Caption shown={containerState === 'backend'}
                  expanded={captionExpanded}
