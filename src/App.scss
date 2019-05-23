@@ -7,7 +7,9 @@ $intro-transition-duration: 0.25s;
 
 :root {
   --full-height: calc(var(--vh, 1vh) * 100);
-  --shards-container-height: calc(var(--vh, 1vh) * 91);
+  --shards-container-height: calc(var(--vh, 1vh) * 90);
+  --caption-heading-height: calc(var(--vh, 1vh) * 10);
+  --caption-body-height: calc(var(--vh, 1vh) * 50);
 }
 
 @mixin shards-disappeared {
@@ -135,6 +137,7 @@ $search-bar-width: 20%;
   height: var(--full-height);
   justify-content: center;
   outline: none;
+  overflow: hidden;
   position: relative;
   transition: background-color $transition-duration ease-in;
   width: 100vw;
@@ -270,7 +273,9 @@ $search-bar-width: 20%;
   }
 
   &.backend {
-    background-color: $gorse;
+    &, .caption.expanded {
+      background-color: $gorse;
+    }
 
     .shard-wrap {
       &:nth-child(1) .shard {
@@ -348,7 +353,9 @@ $search-bar-width: 20%;
   }
 
   &.frontend {
-    background-color: $off-yellow;
+    &, .caption.expanded {
+      background-color: $off-yellow;
+    }
 
     .shard-wrap {
       &:nth-child(1) .shard {
@@ -419,6 +426,7 @@ $search-bar-width: 20%;
                                 ($x1 + $search-bar-width) ($y1 + $search-bar-height),
                                 ($x1 ($y1 + $search-bar-height))
         );
+
         &:after {
           background-image: url('assets/svg/search.svg');
           background-position: center center;
@@ -464,7 +472,9 @@ $search-bar-width: 20%;
   }
 
   &.ai {
-    background-color: $ghost-white;
+    &, .caption.expanded {
+      background-color: $ghost-white;
+    }
 
     .shard-wrap {
       // I3 -> H2 -> O1
@@ -528,57 +538,80 @@ $search-bar-width: 20%;
   }
 
   .caption {
+    align-items: stretch;
     bottom: 0;
-    height: calc(var(--full-height) - var(--shards-container-height));
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: calc(var(--caption-heading-height) + var(--caption-body-height));
     position: absolute;
+    text-align: center;
+    transition: all #{$transition-duration / 2} ease-out;
+    user-select: none;
     width: 100vw;
-    z-index: 6;
+    z-index: 10;
 
-    & > div {
+    &.up {
+      transform: translateY(var(--caption-body-height));
+      transition-delay: #{$transition-duration / 2};
+    }
+
+    &.down {
+      transform: translateY(115%);
+    }
+
+    > * {
+      flex: 0;
+    }
+
+    .caption-heading {
       align-items: center;
       cursor: pointer;
       display: flex;
+      flex: 0 0 var(--caption-heading-height);
       flex-direction: column;
-      height: 100%;
       justify-content: flex-end;
-      position: absolute;
-      text-align: center;
-      transition: all #{$transition-duration / 2} ease-out;
-      width: 100%;
-
-      &.up {
-        transform: translateY(0);
-        transition-delay: #{$transition-duration / 2};
-      }
-
-      &.down {
-        transform: translateY(150%);
-      }
-
-      > * {
-        flex: 0;
-      }
-
-      h2 {
-        margin-bottom: 0.75vh;
-      }
-
-      .caption-arrow {
-        background-image: url('assets/svg/expand.svg');
-        background-position: center;
-        background-size: 160%;
-        flex: 0 0 auto;
-        height: 22px;
-        position: absolute;
-        top: 0;
-        transition: transform $transition-duration ease-in;
-        width: 22px;
-      }
+      padding-bottom: calc(var(--vh, 1vh) * 0.75);
+      z-index: 2;
     }
 
-    &.expanded .caption-arrow {
-      transform: rotateX(180deg);
+    .caption-arrow {
+      align-self: center;
+      background-image: url('assets/svg/expand.svg');
+      background-position: center;
+      background-size: 160%;
+      flex: 0 0 auto;
+      height: 22px;
+      position: absolute;
+      top: 2px;
+      transition: transform $transition-duration ease-in;
+      width: 22px;
+    }
+
+    &.expanded.up {
+      box-shadow: 0px -1px 5px 1px rgba(0, 0, 0, 0.2);
+      transition-duration: 100ms;
+      transform: translateY(0);
+      .caption-arrow {
+        transform: rotateX(180deg);
+      }
+    }
+  }
+
+  .caption-overlay {
+    background-color: rgba(255, 255, 255, 0.5);
+    height: var(--full-height);
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    transition: opacity $transition-duration ease-in-out;
+    width: 100%;
+    z-index: 8;
+
+    &.active {
+      opacity: 1;
+      pointer-events: auto;
     }
   }
 

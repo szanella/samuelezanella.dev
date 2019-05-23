@@ -125,10 +125,15 @@ class App extends React.Component {
       this.toState(true);
     } else if (event.key === 'ArrowLeft') {
       this.toState(false);
+    } else if (event.key === ' ') {
+      this.toggleCaptionExpanded();
     }
   }
 
   toState(next = true) {
+    if (this.state.captionExpanded) {
+      return;
+    }
     const currentIndex = this.containerStates.indexOf(this.state.containerState);
     const totStates = this.containerStates.length;
 
@@ -142,8 +147,15 @@ class App extends React.Component {
     });
   }
 
-  toggleCaptionExpanded(event) {
-    event.stopPropagation();
+  toggleCaptionExpanded(event = null) {
+    if (!['frontend', 'backend', 'ai'].includes(this.state.containerState)) {
+      return;
+    }
+
+    if (event) {
+      event.stopPropagation();
+    }
+    
     const {captionExpanded} = this.state;
 
     this.setState({
@@ -168,7 +180,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {containerState, terminalLines, tutorialHidden} = this.state;
+    const {containerState, terminalLines, tutorialHidden, captionExpanded} = this.state;
 
     return (
       <div className={`app ${containerState}`}
@@ -199,24 +211,28 @@ class App extends React.Component {
             ))}
           </div>
         </div>
-        <div className={`caption ${this.state.captionExpanded ? 'expanded' : ''}`}>
-          <Caption shown={containerState === 'frontend'}
-                   predicate='do'
-                   subject='Frontend'
-                   onClick={this.toggleCaptionExpanded}>
-            <p>I love creating sleek user interfaces</p>
-          </Caption>
-          <Caption shown={containerState === 'backend'}
-                   predicate='do'
-                   subject='Backend'
-                   onClick={this.toggleCaptionExpanded}>
-          </Caption>
-          <Caption shown={containerState === 'ai'}
-                   predicate='love'
-                   subject='Artificial Intelligence'
-                   onClick={this.toggleCaptionExpanded}>
-          </Caption>
-        </div>
+
+        <Caption shown={containerState === 'frontend'}
+                 expanded={captionExpanded}
+                 predicate='do'
+                 subject='Frontend'
+                 onClick={this.toggleCaptionExpanded}>
+          <p>I love creating sleek user interfaces</p>
+        </Caption>
+        <Caption shown={containerState === 'backend'}
+                 expanded={captionExpanded}
+                 predicate='do'
+                 subject='Backend'
+                 onClick={this.toggleCaptionExpanded}>
+        </Caption>
+        <Caption shown={containerState === 'ai'}
+                 expanded={captionExpanded}
+                 predicate='love'
+                 subject='Artificial Intelligence'
+                 onClick={this.toggleCaptionExpanded}>
+        </Caption>
+        <div className={`caption-overlay ${captionExpanded ? 'active' : ''}`}
+             onClick={this.toggleCaptionExpanded}></div>
 
         <div className='contacts'>
           <p>Find me here:</p>
