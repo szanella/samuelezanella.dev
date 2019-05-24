@@ -589,7 +589,6 @@ $search-bar-width: 20%;
 
     &.expanded.up {
       box-shadow: 0px -1px 5px 1px rgba(0, 0, 0, 0.2);
-      transition-duration: 100ms;
       transform: translateY(0);
       .caption-arrow {
         transform: rotateX(180deg);

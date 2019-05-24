@@ -240,7 +240,7 @@ class App extends React.Component {
           <p><ExtLink href='https://github.com/szanella'>GitHub</ExtLink></p>
           <p><ExtLink href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</ExtLink></p>
         </div>
-        <img className={`tutorial ${tutorialHidden ? 'hidden' : ''}`} src={handCursor}/>
+        <img alt='tutorial' className={`tutorial ${tutorialHidden ? 'hidden' : ''}`} src={handCursor}/>
       </div>
     )
   }
