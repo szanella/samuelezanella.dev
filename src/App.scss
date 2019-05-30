@@ -67,11 +67,12 @@ $intro-transition-duration: 0.25s;
 // Window
 $window-width: 85%;
 $window-height: 85%;
+$y-offset: -5%;
 
 @mixin window-header($header-h, $flip) {
   $x1: (100% - $window-width) / 2;
   $x2: 100% - $x1;
-  $y1: (100% - $window-height) / 2;
+  $y1: (100% - $window-height) / 2 + $y-offset;
   $y2: $y1 + $header-h;
   @if $flip == true {
     clip-path: polygon($x1 $y1, $x1 $y2, $x2 $y2, $x2 $y1);
@@ -83,8 +84,8 @@ $window-height: 85%;
 @mixin window-body($header-h, $flip) {
   $x1: (100% - $window-width) / 2;
   $x2: 100% - $x1;
-  $y1: (100% - $window-height) / 2  + $header-h;
-  $y2: 100% - (100% - $window-height) / 2;
+  $y1: (100% - $window-height) / 2  + $header-h + $y-offset;
+  $y2: 100% - (100% - $window-height) / 2 + $y-offset;
   @if $flip == true {
     clip-path: polygon($x1 $y1, $x1 $y2, $x2 $y2, $x2 $y1);
   } @else {
@@ -101,7 +102,7 @@ $terminal-cursor-height: 4%;
 
 @mixin terminal-button($n) {
   $x1: (100% - $window-width) / 2;
-  $y1: (100% - $window-height) / 2;
+  $y1: (100% - $window-height) / 2 + $y-offset;
   clip-path: circle($terminal-button-radius at ($x1 + ($terminal-button-radius * 2 + $terminal-button-margin) * $n) ($y1 + $terminal-bar-height / 2));
 }
 
@@ -134,7 +135,7 @@ $search-bar-width: 20%;
 
   .shard {
     background-color: rgb(224, 224, 224);
-    clip-path: circle(4% at $coords);
+    clip-path: circle(4% at nth($coords, 1) (nth($coords, 2) + $y-offset));
   }
 }
 
@@ -144,10 +145,10 @@ $search-bar-width: 20%;
   .shard {
     background-color: rgb(0, 0, 0);
     clip-path: polygon(
-                    nth($from, 1) nth($from, 2) - 0.5%,
-                    nth($to, 1) nth($to, 2) - 0.5%,
-                    nth($to, 1) nth($to, 2) + 0.5%,
-                    nth($from, 1) nth($from, 2) + 0.5%
+                    nth($from, 1) nth($from, 2) - 0.5% + $y-offset,
+                    nth($to, 1) nth($to, 2) - 0.5% + $y-offset,
+                    nth($to, 1) nth($to, 2) + 0.5% + $y-offset,
+                    nth($from, 1) nth($from, 2) + 0.5% + $y-offset
     )
   }
 }
@@ -222,7 +223,7 @@ $search-bar-width: 20%;
       opacity: 0;
       pointer-events: none;
       position: absolute;
-      top: 13%;
+      top: 13% + $y-offset;
       width: 82%;
       z-index: 5;
 
@@ -400,7 +401,7 @@ $search-bar-width: 20%;
 
         &:nth-child(3) .shard {
           $x1: 100% - (100% - $window-width) / 2 - 3.5%;
-          $y1: (100% - $window-height) / 2 + $header-height / 2;
+          $y1: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
           background-color: rgb(255, 255, 255);
           clip-path: circle(1.5% at $x1 $y1);
 
@@ -420,7 +421,7 @@ $search-bar-width: 20%;
 
         &:nth-child(4) .shard {
           $x1: (100% - $window-width) / 2 + 3.5%;
-          $y1: (100% - $window-height) / 2 + $header-height / 2;
+          $y1: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
           background-color: rgb(255, 255, 255);
           clip-path: circle(1.5% at $x1 $y1);
 
@@ -440,7 +441,7 @@ $search-bar-width: 20%;
 
         &:nth-child(5) .shard {
           $x: (100% - $window-width) / 2 + 12%;
-          $y: (100% - $window-height) / 2 + $header-height + 20%;
+          $y: (100% - $window-height) / 2 + $header-height + 20% + $y-offset;
           background-color: #FFFFFF;
           clip-path: circle(6% at $x $y);
 
@@ -462,7 +463,7 @@ $search-bar-width: 20%;
         &:nth-child(6) .shard {
           background-color: rgb(255, 255, 255);
           $x1: (100% - $window-width) / 2 + 8%;
-          $y1: (100% - $window-height) / 2 + ($header-height - $search-bar-height) / 2;
+          $y1: (100% - $window-height) / 2 + ($header-height - $search-bar-height) / 2 + $y-offset;
           clip-path: polygon(
                                   ($x1 $y1),
                                   ($x1 + $search-bar-width) $y1,
@@ -510,7 +511,7 @@ $search-bar-width: 20%;
         &:nth-child(11) .shard {
           background-color: rgb(240, 240, 240);
           $x1: (100% - $window-width) / 2 + 4%;
-          $y1: (100% - $window-height) / 2 + $header-height + 8%;
+          $y1: (100% - $window-height) / 2 + $header-height + 8% + $y-offset;
           $x2: $x1 + 16%;
           $y2: $y1 + 40%;
           clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
@@ -595,7 +596,9 @@ $search-bar-width: 20%;
     height: calc(var(--caption-heading-height) + var(--caption-body-height));
     position: absolute;
     text-align: center;
-    transition: all #{$transition-duration / 2} ease-out;
+    transition-duration: #{$transition-duration / 2};
+    transition-property: transform;
+    transition-timing-function: ease-out;
     user-select: none;
     width: 100vw;
     z-index: 10;
@@ -613,8 +616,9 @@ $search-bar-width: 20%;
       flex: 0;
     }
 
-    .caption-heading {
+    &-heading {
       align-items: center;
+      box-shadow: rgba(0, 0, 0, 0.3) 0 -2px 2px 0;
       cursor: pointer;
       display: flex;
       flex: 0 0 var(--caption-heading-height);
@@ -624,24 +628,39 @@ $search-bar-width: 20%;
       z-index: 2;
     }
 
-    .caption-arrow {
+    &-arrow {
       align-self: center;
       background-image: url('assets/svg/expand.svg');
       background-position: center;
       background-size: 160%;
       flex: 0 0 auto;
-      height: 1.75vmax;
+      height: 3vh;
       position: absolute;
-      top: 2px;
+      top: 4px;
       transition: transform $transition-duration ease-in;
-      width: 1.75vmax;
+      width: 3vh;
+    }
+
+    &-text {
+      opacity: 0;
+      padding-top: 3vh;
+      transition: opacity #{$transition-duration * 2} ease-out;
     }
 
     &.expanded.up {
       transform: translateY(0);
+      transition-timing-function: ease-in;
+
+      .caption-heading {
+        box-shadow: rgba(0, 0, 0, 0.3) 0 2px 2px 0;
+      }
 
       .caption-arrow {
         transform: rotateX(180deg);
+      }
+
+      .caption-text {
+        opacity: 1;
       }
     }
   }
@@ -659,7 +678,7 @@ $search-bar-width: 20%;
     z-index: 8;
 
     &.active {
-      opacity: 0.5;
+      opacity: 0.75;
       pointer-events: auto;
     }
   }
