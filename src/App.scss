@@ -9,7 +9,7 @@ $intro-transition-duration: 0.25s;
   --full-height: calc(var(--vh, 1vh) * 100);
   --shards-container-height: calc(var(--vh, 1vh) * 90);
   --caption-heading-height: calc(var(--vh, 1vh) * 10);
-  --caption-body-height: calc(var(--vh, 1vh) * 50);
+  --caption-body-height: calc(var(--vh, 1vh) * 90);
 }
 
 @mixin shards-disappeared {
@@ -36,6 +36,29 @@ $intro-transition-duration: 0.25s;
       &:nth-child(7) .shard {
         background-color: rgb(0, 0, 0);
         clip-path: polygon(50% 50%, 50% 50%, 50% 50%);
+      }
+    }
+  }
+}
+
+@mixin shards-raised {
+  .shards-container {
+    .shard-wrap {
+
+      @for $i from 1 through 11 {
+        &:nth-child(#{$i}) .shard {
+          background-color: rgba(224, 224, 224, 0);
+          $x: 50vw;
+          $y: 0;
+          @if $i == 1 or $i == 2 or $i == 6 or $i == 11 {
+            clip-path: polygon($x $y, $x $y, $x $y, $x $y);
+          } @else if $i == 3 or $i == 4 or $i == 5 or $i == 8 or $i == 9 or $i == 10 {
+            clip-path: circle(0% at $x $y);
+          } @else {
+            clip-path: polygon($x $y, $x $y, $x $y);
+          }
+          transition-delay: 0ms;
+        }
       }
     }
   }
@@ -273,268 +296,295 @@ $search-bar-width: 20%;
   }
 
   &.backend {
-    &, .caption.expanded {
-      background-color: $gorse;
-    }
-
-    .shard-wrap {
-      &:nth-child(1) .shard {
-        background-color: rgb(0, 0, 0);
-        @include window-body($terminal-bar-height, false)
-      }
-
-      &:nth-child(2) .shard {
-        background-color: rgb(63, 61, 60);
-        @include window-header($terminal-bar-height, false);
-      }
-
-      &:nth-child(3) .shard {
-        background-color: rgb(252, 64, 66);
-        @include terminal-button(1);
-      }
-
-      &:nth-child(4) .shard {
-        background-color: rgb(224, 192, 76);
-        @include terminal-button(2);
-      }
-
-      &:nth-child(5) .shard {
-        background-color: rgb(114, 191, 71);
-        @include terminal-button(3);
-      }
-
-      // Cursor
-      &:nth-child(6) .shard {
-        //background-color: rgb(240, 240, 240);
-        //opacity: 0.75;
-        //$x1: (100% - $window-width) / 2 + 1.5%;
-        //$y1: (100% - $window-height) / 2  + $terminal-bar-height + 2%;
-        //clip-path: polygon(
-        //                        ($x1 $y1),
-        //                        ($x1 + $terminal-cursor-width) $y1,
-        //                        ($x1 + $terminal-cursor-width) ($y1 + $terminal-cursor-height),
-        //                        ($x1 ($y1 + $terminal-cursor-height))
-        //);
-        //
-        //animation: cursor-blink 1.5s step-end infinite 0.5s;
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
-      }
-
-      &:nth-child(7) .shard {
-        background-color: rgb(255, 255, 255);
-        clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
-      }
-
-      &:nth-child(8) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: circle(0 at 0% 0%);
-      }
-
-      &:nth-child(9) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: circle(0 at 0% 50%);
-      }
-
-      &:nth-child(10) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: circle(0 at 0% 100%);
-      }
-
-      &:nth-child(11) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
-      }
-    }
-
-    .terminal-text {
-      opacity: 1;
-    }
+    background-color: $gorse;
   }
 
   &.frontend {
-    &, .caption.expanded {
-      background-color: $off-yellow;
+    background-color: $off-yellow;
+  }
+
+  &.ai {
+    background-color: $ghost-white;
+  }
+
+  &:not(.caption-expanded) {
+    &.backend {
+      .shard-wrap {
+        &:nth-child(1) .shard {
+          background-color: rgb(0, 0, 0);
+          @include window-body($terminal-bar-height, false)
+        }
+
+        &:nth-child(2) .shard {
+          background-color: rgb(63, 61, 60);
+          @include window-header($terminal-bar-height, false);
+        }
+
+        &:nth-child(3) .shard {
+          background-color: rgb(252, 64, 66);
+          @include terminal-button(1);
+        }
+
+        &:nth-child(4) .shard {
+          background-color: rgb(224, 192, 76);
+          @include terminal-button(2);
+        }
+
+        &:nth-child(5) .shard {
+          background-color: rgb(114, 191, 71);
+          @include terminal-button(3);
+        }
+
+        // Cursor
+        &:nth-child(6) .shard {
+          //background-color: rgb(240, 240, 240);
+          //opacity: 0.75;
+          //$x1: (100% - $window-width) / 2 + 1.5%;
+          //$y1: (100% - $window-height) / 2  + $terminal-bar-height + 2%;
+          //clip-path: polygon(
+          //                        ($x1 $y1),
+          //                        ($x1 + $terminal-cursor-width) $y1,
+          //                        ($x1 + $terminal-cursor-width) ($y1 + $terminal-cursor-height),
+          //                        ($x1 ($y1 + $terminal-cursor-height))
+          //);
+          //
+          //animation: cursor-blink 1.5s step-end infinite 0.5s;
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+        }
+
+        &:nth-child(7) .shard {
+          background-color: rgb(255, 255, 255);
+          clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
+        }
+
+        &:nth-child(8) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 0%);
+        }
+
+        &:nth-child(9) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 50%);
+        }
+
+        &:nth-child(10) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 100%);
+        }
+
+        &:nth-child(11) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+        }
+      }
+
+      .terminal-text {
+        opacity: 1;
+      }
     }
 
-    .shard-wrap {
-      &:nth-child(1) .shard {
-        //background-color: $cerulean-frost;
-        background-color: $wild-blue-yonder;
-        @include window-header($header-height, true);
-      }
+    &.frontend {
+      .shard-wrap {
+        &:nth-child(1) .shard {
+          //background-color: $cerulean-frost;
+          background-color: $wild-blue-yonder;
+          @include window-header($header-height, true);
+        }
 
-      &:nth-child(2) .shard {
-        //background-color: rgb(224, 224, 224);
-        background-color: #FFFFFF;
-        @include window-body($header-height, true);
-      }
+        &:nth-child(2) .shard {
+          //background-color: rgb(224, 224, 224);
+          background-color: #FFFFFF;
+          @include window-body($header-height, true);
+        }
 
-      &:nth-child(3) .shard {
-        $x1: 100% - (100% - $window-width) / 2 - 3.5%;
-        $y1: (100% - $window-height) / 2 + $header-height / 2;
-        background-color: rgb(255, 255, 255);
-        clip-path: circle(1.5% at $x1 $y1);
+        &:nth-child(3) .shard {
+          $x1: 100% - (100% - $window-width) / 2 - 3.5%;
+          $y1: (100% - $window-height) / 2 + $header-height / 2;
+          background-color: rgb(255, 255, 255);
+          clip-path: circle(1.5% at $x1 $y1);
 
-        &:after {
-          background-image: url('assets/svg/person.svg');
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-size: 55%;
-          content: ' ';
-          height: 6%;
-          left: $x1 - 1.5%;
-          position: absolute;
-          top: $y1 - 3%;
-          width: 3%;
+          &:after {
+            background-image: url('assets/svg/person.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 55%;
+            content: ' ';
+            height: 6%;
+            left: $x1 - 1.5%;
+            position: absolute;
+            top: $y1 - 3%;
+            width: 3%;
+          }
+        }
+
+        &:nth-child(4) .shard {
+          $x1: (100% - $window-width) / 2 + 3.5%;
+          $y1: (100% - $window-height) / 2 + $header-height / 2;
+          background-color: rgb(255, 255, 255);
+          clip-path: circle(1.5% at $x1 $y1);
+
+          &:after {
+            background-image: url('assets/svg/whatshot.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 55%;
+            content: ' ';
+            height: 6%;
+            left: $x1 - 1.5%;
+            position: absolute;
+            top: $y1 - 3%;
+            width: 3%;
+          }
+        }
+
+        &:nth-child(5) .shard {
+          $x: (100% - $window-width) / 2 + 12%;
+          $y: (100% - $window-height) / 2 + $header-height + 20%;
+          background-color: #FFFFFF;
+          clip-path: circle(6% at $x $y);
+
+          &:after {
+            background-image: url('assets/svg/person.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 55%;
+            content: ' ';
+            height: 24%;
+            left: $x - 6%;
+            position: absolute;
+            top: $y - 12%;
+            width: 12%;
+          }
+        }
+
+        // Search bar
+        &:nth-child(6) .shard {
+          background-color: rgb(255, 255, 255);
+          $x1: (100% - $window-width) / 2 + 8%;
+          $y1: (100% - $window-height) / 2 + ($header-height - $search-bar-height) / 2;
+          clip-path: polygon(
+                                  ($x1 $y1),
+                                  ($x1 + $search-bar-width) $y1,
+                                  ($x1 + $search-bar-width) ($y1 + $search-bar-height),
+                                  ($x1 ($y1 + $search-bar-height))
+          );
+
+          &:after {
+            background-image: url('assets/svg/search.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 60%;
+            content: ' ';
+            height: $search-bar-height;
+            left: $x1 + $search-bar-width - ($search-bar-height / 2);
+            position: absolute;
+            top: $y1;
+            width: $search-bar-height / 2;
+          }
+        }
+
+        // Mouse
+        &:nth-child(7) .shard {
+          background-color: rgb(0, 0, 0);
+          clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+
+          animation: move-around 5s ease-in-out infinite 0.75s;
+        }
+
+        &:nth-child(8) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 0%);
+        }
+
+        &:nth-child(9) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 50%);
+        }
+
+        &:nth-child(10) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 100%);
+        }
+
+        &:nth-child(11) .shard {
+          background-color: rgb(240, 240, 240);
+          $x1: (100% - $window-width) / 2 + 4%;
+          $y1: (100% - $window-height) / 2 + $header-height + 8%;
+          $x2: $x1 + 16%;
+          $y2: $y1 + 40%;
+          clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
         }
       }
+    }
 
-      &:nth-child(4) .shard {
-        $x1: (100% - $window-width) / 2 + 3.5%;
-        $y1: (100% - $window-height) / 2 + $header-height / 2;
-        background-color: rgb(255, 255, 255);
-        clip-path: circle(1.5% at $x1 $y1);
+    &.ai {
+      .shard-wrap {
+        // I3 -> H2 -> O1
 
-        &:after {
-          background-image: url('assets/svg/whatshot.svg');
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-size: 55%;
-          content: ' ';
-          height: 6%;
-          left: $x1 - 1.5%;
-          position: absolute;
-          top: $y1 - 3%;
-          width: 3%;
+        &:nth-child(1) {
+          @include synapse(40% 70%, 60% 50%);
         }
-      }
 
-      &:nth-child(5) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: circle(0 at 0% 0%);
-      }
-
-      // Search bar
-      &:nth-child(6) .shard {
-        background-color: rgb(255, 255, 255);
-        $x1: (100% - $window-width) / 2 + 7%;
-        $y1: (100% - $window-height) / 2 + ($header-height - $search-bar-height) / 2;
-        clip-path: polygon(
-                                ($x1 $y1),
-                                ($x1 + $search-bar-width) $y1,
-                                ($x1 + $search-bar-width) ($y1 + $search-bar-height),
-                                ($x1 ($y1 + $search-bar-height))
-        );
-
-        &:after {
-          background-image: url('assets/svg/search.svg');
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-size: 60%;
-          content: ' ';
-          height: $search-bar-height;
-          left: $x1 + $search-bar-width - ($search-bar-height / 2);
-          position: absolute;
-          top: $y1;
-          width: $search-bar-height / 2;
+        // I1 -> H1 -> O1
+        &:nth-child(2) {
+          @include synapse(40% 30%, 60% 50%);
         }
-      }
 
-      // Mouse
-      &:nth-child(7) .shard {
-        background-color: rgb(0, 0, 0);
-        clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+        // O1
+        &:nth-child(3) {
+          @include neuron(60% 50%);
+        }
 
-        animation: move-around 5s ease-in-out infinite 0.75s;
-      }
+        // H1
+        &:nth-child(4) {
+          @include neuron(50% 40%);
+        }
 
-      &:nth-child(8) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: circle(0 at 0% 0%);
-      }
+        // H2
+        &:nth-child(5) {
+          @include neuron(50% 60%);
+        }
 
-      &:nth-child(9) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: circle(0 at 0% 50%);
-      }
+        // I2 -> H2
+        &:nth-child(6) {
+          @include synapse(40% 50%, 50% 60%);
+        }
 
-      &:nth-child(10) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: circle(0 at 0% 100%);
-      }
+        &:nth-child(7) {
+          .shard {
+            background-color: rgb(255, 255, 255);
+            clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
+          }
+        }
 
-      &:nth-child(11) .shard {
-        background-color: rgba(0, 0, 0, 0);
-        clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+        // I1
+        &:nth-child(8) {
+          @include neuron(40% 30%);
+        }
+
+        // I2
+        &:nth-child(9) {
+          @include neuron(40% 50%);
+        }
+
+        // I3
+        &:nth-child(10) {
+          @include neuron(40% 70%);
+        }
+
+        // I2 -> H1
+        &:nth-child(11) {
+          @include synapse(40% 50%, 50% 40%);
+        }
       }
     }
   }
 
-  &.ai {
-    &, .caption.expanded {
-      background-color: $ghost-white;
-    }
-
-    .shard-wrap {
-      // I3 -> H2 -> O1
-
-      &:nth-child(1) {
-        @include synapse(40% 70%, 60% 50%);
-      }
-
-      // I1 -> H1 -> O1
-      &:nth-child(2) {
-        @include synapse(40% 30%, 60% 50%);
-      }
-
-      // O1
-      &:nth-child(3) {
-        @include neuron(60% 50%);
-      }
-
-      // H1
-      &:nth-child(4) {
-        @include neuron(50% 40%);
-      }
-
-      // H2
-      &:nth-child(5) {
-        @include neuron(50% 60%);
-      }
-
-      // I2 -> H2
-      &:nth-child(6) {
-        @include synapse(40% 50%, 50% 60%);
-      }
-
-      &:nth-child(7) {
-        .shard {
-          background-color: rgb(255, 255, 255);
-          clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
-        }
-      }
-
-      // I1
-      &:nth-child(8) {
-        @include neuron(40% 30%);
-      }
-
-      // I2
-      &:nth-child(9) {
-        @include neuron(40% 50%);
-      }
-
-      // I3
-      &:nth-child(10) {
-        @include neuron(40% 70%);
-      }
-
-      // I2 -> H1
-      &:nth-child(11) {
-        @include synapse(40% 50%, 50% 40%);
-      }
-    }
+  &.frontend.caption-expanded,
+  &.backend.caption-expanded,
+  &.ai.caption-expanded {
+    @include shards-raised;
   }
 
   .caption {
@@ -580,16 +630,16 @@ $search-bar-width: 20%;
       background-position: center;
       background-size: 160%;
       flex: 0 0 auto;
-      height: 22px;
+      height: 1.75vmax;
       position: absolute;
       top: 2px;
       transition: transform $transition-duration ease-in;
-      width: 22px;
+      width: 1.75vmax;
     }
 
     &.expanded.up {
-      box-shadow: 0px -1px 5px 1px rgba(0, 0, 0, 0.2);
       transform: translateY(0);
+
       .caption-arrow {
         transform: rotateX(180deg);
       }
@@ -597,7 +647,7 @@ $search-bar-width: 20%;
   }
 
   .caption-overlay {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0);
     height: var(--full-height);
     left: 0;
     opacity: 0;
@@ -609,7 +659,7 @@ $search-bar-width: 20%;
     z-index: 8;
 
     &.active {
-      opacity: 1;
+      opacity: 0.5;
       pointer-events: auto;
     }
   }

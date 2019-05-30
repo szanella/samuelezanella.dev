@@ -68,7 +68,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.state.containerState === 'backend') {
+    if (this.state.containerState === 'backend' && !this.state.captionExpanded) {
       if (!this.terminalSub) {
         this.terminalSub = of(...this.terminalOutput).pipe(
           delay(600),
@@ -183,7 +183,7 @@ class App extends React.Component {
     const {containerState, terminalLines, tutorialHidden, captionExpanded} = this.state;
 
     return (
-      <div className={`app ${containerState}`}
+      <div className={`app ${containerState} ${captionExpanded ? 'caption-expanded' : ''}`}
            ref={appDiv => appDiv && appDiv.focus()}
            tabIndex={1}
            onKeyUp={this.handleKeypress}
