@@ -217,12 +217,15 @@ class App extends React.Component {
                  predicate='do'
                  subject='Frontend'
                  onClick={this.toggleCaptionExpanded}>
+          <p>I love creating sleek and usable interfaces using bleeding edge technologies.</p>
+          <p>My main focus are web applications, built in <span className='accent'>Angular</span> and <span className='accent'>React</span>, in conjunction with <span className='accent'>Redux</span>.</p>
         </Caption>
         <Caption shown={containerState === 'backend'}
                  expanded={captionExpanded}
                  predicate='do'
                  subject='Backend'
                  onClick={this.toggleCaptionExpanded}>
+          <p>I build <span className='accent'>REST</span> and <span className='accent'>GraphQL</span> backends, mainly in <span className='accent'>Ruby on Rails</span> and with relational databases.</p>
         </Caption>
         <Caption shown={containerState === 'ai'}
                  expanded={captionExpanded}
