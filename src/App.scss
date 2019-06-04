@@ -4,6 +4,9 @@ $aspect-ratio: 1/2;
 $transition-stagger: 0.05s;
 $transition-duration: 0.5s;
 $intro-transition-duration: 0.25s;
+$caption-text-transition-duration: 0.25s;
+$caption-text-transition-delay: 0.7s;
+$caption-text-exit-duration: 0.25s;
 
 :root {
   --full-height: calc(var(--vh, 1vh) * 100);
@@ -648,9 +651,16 @@ $search-bar-width: 20%;
     }
 
     &-text {
-      opacity: 0;
       padding: 3vh 1.25vh 0;
-      transition: opacity #{$transition-duration * 2} ease-out;
+
+      > * {
+        opacity: 0;
+        transition-delay: 0ms;
+        transition-duration: $caption-text-exit-duration;
+        transition-property: opacity, transform;
+        transition-timing-function: ease-out;
+        transform: translateY(100%);
+      }
 
       p {
         margin: 1.25vh ;
@@ -666,7 +676,18 @@ $search-bar-width: 20%;
       }
 
       .caption-text {
-        opacity: 1;
+        > * {
+          opacity: 1;
+          transform: translateY(0);
+          transition-duration: $caption-text-transition-duration;
+        }
+
+        @for $i from 1 through 4 {
+          $delay: ($i - 1) * $caption-text-transition-delay + $transition-duration;
+          > *:nth-child(#{$i}) {
+            transition-delay: $delay;
+          }
+        }
       }
     }
   }

@@ -226,6 +226,7 @@ class App extends React.Component {
                  subject='Backend'
                  onClick={this.toggleCaptionExpanded}>
           <p>I build <span className='accent'>REST</span> and <span className='accent'>GraphQL</span> backends, mainly in <span className='accent'>Ruby on Rails</span> and with relational databases.</p>
+          <p>I am also familiar with <span className='accent'>Node.js</span> and non-relational databases such as <span className='accent'>MongoDB</span>.</p>
         </Caption>
         <Caption shown={containerState === 'ai'}
                  expanded={captionExpanded}
