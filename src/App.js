@@ -219,6 +219,7 @@ class App extends React.Component {
                  onClick={this.toggleCaptionExpanded}>
           <p>I love creating sleek and usable interfaces using bleeding edge technologies.</p>
           <p>My main focus are web applications, built in <span className='accent'>Angular</span> and <span className='accent'>React</span>, in conjunction with <span className='accent'>Redux</span>.</p>
+          <p>I am proficient with <span className='accent'>HTML5</span> and  <span className='accent'>CSS</span>, which I often use paired with  <span className='accent'>Sass</span>.</p>
         </Caption>
         <Caption shown={containerState === 'backend'}
                  expanded={captionExpanded}
@@ -233,6 +234,9 @@ class App extends React.Component {
                  predicate='love'
                  subject='Artificial Intelligence'
                  onClick={this.toggleCaptionExpanded}>
+          <p>I have always been fascinated by Artificial Intelligence.</p>
+          <p>I have taken Udemy courses and tinkered with <span className='accent'>Keras</span> and <span className='accent'>Tensorflow</span>, experimenting with simple <span className='accent'>ANNs</span> and <span className='accent'>CNNs</span></p>
+          <p>I am also interested in the topic of <span className='accent'>AI safety</span>, and follow several sources that talk about it.</p>
         </Caption>
         <div className={`caption-overlay ${captionExpanded ? 'active' : ''}`}
              onClick={this.toggleCaptionExpanded}></div>

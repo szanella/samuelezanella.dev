@@ -5,7 +5,7 @@ $transition-stagger: 0.05s;
 $transition-duration: 0.5s;
 $intro-transition-duration: 0.25s;
 $caption-text-transition-duration: 0.25s;
-$caption-text-transition-delay: 0.7s;
+$caption-text-transition-delay: 0.9s;
 $caption-text-exit-duration: 0.25s;
 
 :root {
@@ -663,7 +663,7 @@ $search-bar-width: 20%;
       }
 
       p {
-        margin: 1.25vh ;
+        margin: 2vh ;
       }
     }
 
