@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.scss';
-import ExtLink from './ExtLink';
+import ExtLink from './components/ExtLink';
 import handCursor from './assets/svg/hand-cursor.svg';
 import {concatMap, delay, scan} from 'rxjs/operators';
 import {of, concat} from 'rxjs';
+import Caption from './components/Caption';
 
 class App extends React.Component {
   constructor(props) {
@@ -57,15 +58,17 @@ class App extends React.Component {
     this.state = {
       containerState: null,
       terminalLines: [],
-      tutorialHidden: false
+      tutorialHidden: false,
+      captionExpanded: false
     };
 
     this.toState = this.toState.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
+    this.toggleCaptionExpanded = this.toggleCaptionExpanded.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.state.containerState === 'backend') {
+    if (this.state.containerState === 'backend' && !this.state.captionExpanded) {
       if (!this.terminalSub) {
         this.terminalSub = of(...this.terminalOutput).pipe(
           delay(600),
@@ -122,10 +125,15 @@ class App extends React.Component {
       this.toState(true);
     } else if (event.key === 'ArrowLeft') {
       this.toState(false);
+    } else if (event.key === ' ') {
+      this.toggleCaptionExpanded();
     }
   }
 
   toState(next = true) {
+    if (this.state.captionExpanded) {
+      return;
+    }
     const currentIndex = this.containerStates.indexOf(this.state.containerState);
     const totStates = this.containerStates.length;
 
@@ -134,7 +142,24 @@ class App extends React.Component {
       containerState: this.containerStates[next ?
         (currentIndex + 1) % totStates :
         (currentIndex + totStates - 1) % totStates],
-      tutorialHidden: true
+      tutorialHidden: true,
+      captionExpanded: false
+    });
+  }
+
+  toggleCaptionExpanded(event = null) {
+    if (!['frontend', 'backend', 'ai'].includes(this.state.containerState)) {
+      return;
+    }
+
+    if (event) {
+      event.stopPropagation();
+    }
+    
+    const {captionExpanded} = this.state;
+
+    this.setState({
+      captionExpanded: !captionExpanded
     });
   }
 
@@ -155,10 +180,10 @@ class App extends React.Component {
   }
 
   render() {
-    const {containerState, terminalLines, tutorialHidden} = this.state;
+    const {containerState, terminalLines, tutorialHidden, captionExpanded} = this.state;
 
     return (
-      <div className={`app ${containerState}`}
+      <div className={`app ${containerState} ${captionExpanded ? 'caption-expanded' : ''}`}
            ref={appDiv => appDiv && appDiv.focus()}
            tabIndex={1}
            onKeyUp={this.handleKeypress}
@@ -186,20 +211,35 @@ class App extends React.Component {
             ))}
           </div>
         </div>
-        <div className='caption'>
-          <div className={containerState === 'frontend' ? 'up' : 'down'}>
-            <p>up</p>
-            <h2>I do <span className='accent'>Frontend</span></h2>
-          </div>
-          <div className={containerState === 'backend' ? 'up' : 'down'}>
-            <p>up</p>
-            <h2>I do <span className='accent'>Backend</span></h2>
-          </div>
-          <div className={containerState === 'ai' ? 'up' : 'down'}>
-            <p>up</p>
-            <h2>I do <span className='accent'>Artificial Intelligence</span></h2>
-          </div>
-        </div>
+
+        <Caption shown={containerState === 'frontend'}
+                 expanded={captionExpanded}
+                 predicate='do'
+                 subject='Frontend'
+                 onClick={this.toggleCaptionExpanded}>
+          <p>I love creating sleek and usable interfaces using bleeding edge technologies.</p>
+          <p>My main focus are web applications, built in <span className='accent'>Angular</span> and <span className='accent'>React</span>, in conjunction with <span className='accent'>Redux</span>.</p>
+          <p>I am proficient with <span className='accent'>HTML5</span> and  <span className='accent'>CSS</span>, which I often use paired with  <span className='accent'>Sass</span>.</p>
+        </Caption>
+        <Caption shown={containerState === 'backend'}
+                 expanded={captionExpanded}
+                 predicate='do'
+                 subject='Backend'
+                 onClick={this.toggleCaptionExpanded}>
+          <p>I build <span className='accent'>REST</span> and <span className='accent'>GraphQL</span> backends, mainly in <span className='accent'>Ruby on Rails</span> and with relational databases.</p>
+          <p>I am also familiar with <span className='accent'>Node.js</span> and non-relational databases such as <span className='accent'>MongoDB</span>.</p>
+        </Caption>
+        <Caption shown={containerState === 'ai'}
+                 expanded={captionExpanded}
+                 predicate='love'
+                 subject='Artificial Intelligence'
+                 onClick={this.toggleCaptionExpanded}>
+          <p>I have always been fascinated by Artificial Intelligence.</p>
+          <p>I have taken Udemy courses and tinkered with <span className='accent'>Keras</span> and <span className='accent'>Tensorflow</span>, experimenting with simple <span className='accent'>ANNs</span> and <span className='accent'>CNNs</span></p>
+          <p>I am also interested in the topic of <span className='accent'>AI safety</span>, and follow several sources that talk about it.</p>
+        </Caption>
+        <div className={`caption-overlay ${captionExpanded ? 'active' : ''}`}
+             onClick={this.toggleCaptionExpanded}></div>
 
         <div className='contacts'>
           <p>Find me here:</p>
@@ -207,8 +247,7 @@ class App extends React.Component {
           <p><ExtLink href='https://github.com/szanella'>GitHub</ExtLink></p>
           <p><ExtLink href='mailto:hello@samuelezanella.dev'>hello@samuelezanella.dev</ExtLink></p>
         </div>
-        <img className={`tutorial ${tutorialHidden ? 'hidden' : ''}`} src={handCursor}/>
-
+        <img alt='tutorial' className={`tutorial ${tutorialHidden ? 'hidden' : ''}`} src={handCursor}/>
       </div>
     )
   }

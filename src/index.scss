@@ -1,5 +1,9 @@
 @import 'assets/scss/colours';
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   color: #111111;
   margin: 0;
@@ -47,4 +51,5 @@ a {
 
 span.accent {
   color: $tomato;
+  font-weight: 700;
 }
