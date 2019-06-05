@@ -235,7 +235,7 @@ class App extends React.Component {
                  subject='Artificial Intelligence'
                  onClick={this.toggleCaptionExpanded}>
           <p>I have always been fascinated by Artificial Intelligence.</p>
-          <p>I have taken Udemy courses and tinkered with <span className='accent'>Keras</span> and <span className='accent'>Tensorflow</span>, experimenting with simple <span className='accent'>ANNs</span> and <span className='accent'>CNNs</span></p>
+          <p>I have taken Udemy courses and tinkered with <span className='accent'>Keras</span> and <span className='accent'>Tensorflow</span>, experimenting with simple <span className='accent'>ANNs</span> and <span className='accent'>CNNs</span>.</p>
           <p>I am also interested in the topic of <span className='accent'>AI safety</span>, and follow several sources that talk about it.</p>
         </Caption>
         <div className={`caption-overlay ${captionExpanded ? 'active' : ''}`}

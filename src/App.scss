@@ -60,7 +60,7 @@ $caption-text-exit-duration: 0.25s;
           } @else {
             clip-path: polygon($x $y, $x $y, $x $y);
           }
-          transition-delay: 0ms;
+          transition-delay: $i * 20ms;
         }
       }
     }
