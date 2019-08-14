@@ -1,0 +1,36 @@
+// General
+$aspect-ratio: 1/2;
+$transition-stagger: 0.05s;
+$transition-duration: 0.5s;
+$intro-transition-duration: 0.25s;
+$caption-text-transition-duration: 0.25s;
+$caption-text-transition-delay: 0.9s;
+$caption-text-exit-duration: 0.25s;
+
+// Window
+$window-width: 85%;
+$window-height: 85%;
+$y-offset: -5%;
+
+// Backend
+$terminal-bar-height: 3.5%;
+$terminal-button-radius: 0.65%;
+$terminal-button-margin: 0.2%;
+$terminal-cursor-width: 1%;
+$terminal-cursor-height: 4%;
+
+// Frontend
+$header-height: 6%;
+$mouse-start-x: 78%;
+$mouse-start-y: 24%;
+$mouse-base-coords: (
+        x1: 0%,
+        y1: 0%,
+        x2: 2%,
+        y2: 2%,
+        x3: 1%,
+        y3: 4%
+);
+$search-bar-height: 4%;
+$search-bar-width: 24%;
+$page-side-margin: 4%;

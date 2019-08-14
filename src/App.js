@@ -18,7 +18,7 @@ class App extends React.Component {
       'contacts'
     ];
 
-    this.nShards = 11;
+    this.nShards = 12;
 
     this.terminalSub = null;
     this.terminalPrefix = (folder = '~') => `samuelezanella:${folder} user $ `;
@@ -209,6 +209,9 @@ class App extends React.Component {
             {terminalLines.map((line, lineIndex) => (
               <p key={`terminal-line-${lineIndex}`}>{line}</p>
             ))}
+          </div>
+          <div className='frontend-contents'>
+
           </div>
         </div>
 

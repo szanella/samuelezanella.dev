@@ -1,0 +1,7 @@
+@function mouse-coords($coords, $x, $y) {
+  @return polygon(
+                  #{map-get($coords, x1) + $x} #{map-get($coords, y1) + $y},
+                  #{map-get($coords, x2) + $x} #{map-get($coords, y2) + $y},
+                  #{map-get($coords, x3) + $x} #{map-get($coords, y3) + $y}
+  );
+}
