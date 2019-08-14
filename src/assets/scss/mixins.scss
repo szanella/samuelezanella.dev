@@ -34,7 +34,7 @@
   .shards-container {
     .shard-wrap {
 
-      @for $i from 1 through 12 {
+      @for $i from 1 through $n-shards {
         &:nth-child(#{$i}) .shard {
           background-color: rgba(224, 224, 224, 0);
           $x: 50%;

@@ -211,7 +211,7 @@ class App extends React.Component {
             ))}
           </div>
           <div className='frontend-contents'>
-
+            <p className='profile-name'>A human being</p>
           </div>
         </div>
 

@@ -62,7 +62,7 @@
         width: 100%;
       }
 
-      @for $i from 1 through 12 {
+      @for $i from 1 through $n-shards {
         $delay: ($i - 1) * $transition-stagger;
         &:nth-child(#{$i}) .shard {
           transition-delay: $delay;
@@ -89,7 +89,32 @@
     }
 
     .frontend-contents {
+      color: $text-colour;
+      height: 100%;
       opacity: 0;
+      pointer-events: none;
+      position: relative;
+      transition: opacity ease-in 50ms;
+      width: 100%;
+      z-index: 5;
+
+      > * {
+        font-size: 2.5vmin;
+        @media (min-width: 1024px) {
+          font-size: 3.5vmin;
+        }
+        position: absolute;
+      }
+
+      .profile-name {
+        $x: (100% - $window-width) / 2 + $page-side-margin;
+        $y: (100% - $window-height) / 2 + $header-height + 31% + $y-offset;
+        left: $x;
+        padding: 0 2%;
+        text-align: center;
+        top: $y;
+        width: 20%;
+      }
     }
   }
 
@@ -314,7 +339,7 @@
 
         // Big person
         &:nth-child(5) .shard {
-          $x: (100% - $window-width) / 2 + 8% + $page-side-margin;
+          $x: (100% - $window-width) / 2 + 10% + $page-side-margin;
           $y: (100% - $window-height) / 2 + $header-height + 20% + $y-offset;
           background-color: rgb(240, 240, 240);
           //background-color: #FFFFFF;
@@ -340,8 +365,8 @@
           background-color: #FFFFFF;
           $x1: (100% - $window-width) / 2 + $page-side-margin;
           $y1: (100% - $window-height) / 2 + $header-height + 8% + $y-offset;
-          $x2: $x1 + 16%;
-          $y2: $y1 + 40%;
+          $x2: $x1 + 20%;
+          $y2: $y1 + 32%;
           clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
         }
 
@@ -357,7 +382,7 @@
         &:nth-child(8) .shard {
           //background-color: rgb(240, 240, 240);
           background-color: #FFFFFF;
-          $x1: (100% - $window-width) / 2 + 24%;
+          $x1: (100% - $window-width) / 2 + 28%;
           $y1: (100% - $window-height) / 2 + $header-height + 8% + $y-offset;
           $x2: 100% - (100% - $window-width) / 2% - $page-side-margin;
           $y2: $y1 + 40%;
@@ -408,6 +433,7 @@
 
       .frontend-contents {
         opacity: 1;
+        transition: opacity ease-out 0.2s 0.75s;
       }
     }
 
