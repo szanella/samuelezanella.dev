@@ -91,6 +91,25 @@
   }
 }
 
+@mixin user-icon($x, $y) {
+  background-color: rgb(255, 255, 255);
+  clip-path: circle(1.5% at $x $y);
+
+  &:after {
+    background-image: url('assets/svg/person.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 55%;
+    content: ' ';
+    height: 6%;
+    left: $x - 1.5%;
+    position: absolute;
+    top: $y - 3%;
+    width: 3%;
+  }
+
+}
+
 // BACKEND
 @mixin terminal-button($n) {
   $x1: (100% - $window-width) / 2;

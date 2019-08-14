@@ -297,31 +297,17 @@
 
         // User icon
         &:nth-child(3) .shard {
-          $x1: 100% - (100% - $window-width) / 2 - 3.5%;
-          $y1: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
-          background-color: rgb(255, 255, 255);
-          clip-path: circle(1.5% at $x1 $y1);
-
-          &:after {
-            background-image: url('assets/svg/person.svg');
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: 55%;
-            content: ' ';
-            height: 6%;
-            left: $x1 - 1.5%;
-            position: absolute;
-            top: $y1 - 3%;
-            width: 3%;
-          }
+          $x: 100% - (100% - $window-width) / 2 - 3.5%;
+          $y: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
+          @include user-icon($x, $y);
         }
 
         // Logo
         &:nth-child(4) .shard {
-          $x1: (100% - $window-width) / 2 + 3.5%;
-          $y1: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
+          $x: (100% - $window-width) / 2 + 3.5%;
+          $y: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
           background-color: rgb(255, 255, 255);
-          clip-path: circle(1.5% at $x1 $y1);
+          clip-path: circle(1.5% at $x $y);
 
           &:after {
             background-image: url('assets/svg/whatshot.svg');
@@ -330,9 +316,9 @@
             background-size: 55%;
             content: ' ';
             height: 6%;
-            left: $x1 - 1.5%;
+            left: $x - 1.5%;
             position: absolute;
-            top: $y1 - 3%;
+            top: $y - 3%;
             width: 3%;
           }
         }
