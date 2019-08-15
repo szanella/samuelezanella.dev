@@ -237,19 +237,19 @@
 
   &.backend {
     &, .caption-text {
-      background-color: $gorse;
+      background-color: $off-yellow;
     }
   }
 
   &.frontend {
     &, .caption-text {
-      background-color: $off-yellow;
+      background-color: $gorse;
     }
   }
 
   &.ai {
     &, .caption-text {
-      background-color: $pale-silver;
+      background-color: $meat-brown;
     }
   }
 
