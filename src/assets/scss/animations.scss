@@ -1,0 +1,88 @@
+@import './mixins';
+@import './variables';
+@import './functions';
+
+@keyframes cursor-blink {
+  0% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.75;
+  }
+}
+
+@keyframes move-around {
+  0% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+  }
+  8% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+  }
+  21% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 20%, $mouse-start-y + 20%);
+  }
+  39% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 20%, $mouse-start-y + 20%);
+  }
+  50% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 30%, $mouse-start-y + 10%);
+  }
+  75% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 30%, $mouse-start-y + 10%);
+  }
+  84% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 35%, $mouse-start-y + 18%);
+  }
+  91% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 35%, $mouse-start-y + 18%);
+  }
+  100% {
+    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+  }
+}
+
+@keyframes emphasis {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes tutorial {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(-2px);
+  }
+  30% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-2px);
+  }
+  60% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes tutorial-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

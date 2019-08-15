@@ -1,159 +1,11 @@
 @import 'assets/scss/colours';
-
-$aspect-ratio: 1/2;
-$transition-stagger: 0.05s;
-$transition-duration: 0.5s;
-$intro-transition-duration: 0.25s;
-$caption-text-transition-duration: 0.25s;
-$caption-text-transition-delay: 0.9s;
-$caption-text-exit-duration: 0.25s;
+@import 'assets/scss/animations';
 
 :root {
   --full-height: calc(var(--vh, 1vh) * 100);
   --shards-container-height: calc(var(--vh, 1vh) * 90);
   --caption-heading-height: calc(var(--vh, 1vh) * 10);
   --caption-body-height: calc(var(--vh, 1vh) * 90);
-}
-
-@mixin shards-disappeared {
-  .shards-container {
-    .shard-wrap {
-      &:nth-child(1) .shard,
-      &:nth-child(2) .shard,
-      &:nth-child(6) .shard,
-      &:nth-child(11) .shard {
-        background-color: rgb(0, 0, 0);
-        clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
-      }
-
-      &:nth-child(3) .shard,
-      &:nth-child(4) .shard,
-      &:nth-child(5) .shard,
-      &:nth-child(8) .shard,
-      &:nth-child(9) .shard,
-      &:nth-child(10) .shard {
-        background-color: rgb(0, 0, 0);
-        clip-path: circle(0% at 50% 50%);
-      }
-
-      &:nth-child(7) .shard {
-        background-color: rgb(0, 0, 0);
-        clip-path: polygon(50% 50%, 50% 50%, 50% 50%);
-      }
-    }
-  }
-}
-
-@mixin shards-raised {
-  .shards-container {
-    .shard-wrap {
-
-      @for $i from 1 through 11 {
-        &:nth-child(#{$i}) .shard {
-          background-color: rgba(224, 224, 224, 0);
-          $x: 50vw;
-          $y: 0;
-          @if $i == 1 or $i == 2 or $i == 6 or $i == 11 {
-            clip-path: polygon($x $y, $x $y, $x $y, $x $y);
-          } @else if $i == 3 or $i == 4 or $i == 5 or $i == 8 or $i == 9 or $i == 10 {
-            clip-path: circle(0% at $x $y);
-          } @else {
-            clip-path: polygon($x $y, $x $y, $x $y);
-          }
-          transition-delay: 0ms;
-        }
-      }
-    }
-  }
-}
-
-// Window
-$window-width: 85%;
-$window-height: 85%;
-$y-offset: -5%;
-
-@mixin window-header($header-h, $flip) {
-  $x1: (100% - $window-width) / 2;
-  $x2: 100% - $x1;
-  $y1: (100% - $window-height) / 2 + $y-offset;
-  $y2: $y1 + $header-h;
-  @if $flip == true {
-    clip-path: polygon($x1 $y1, $x1 $y2, $x2 $y2, $x2 $y1);
-  } @else {
-    clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
-  }
-}
-
-@mixin window-body($header-h, $flip) {
-  $x1: (100% - $window-width) / 2;
-  $x2: 100% - $x1;
-  $y1: (100% - $window-height) / 2  + $header-h + $y-offset;
-  $y2: 100% - (100% - $window-height) / 2 + $y-offset;
-  @if $flip == true {
-    clip-path: polygon($x1 $y1, $x1 $y2, $x2 $y2, $x2 $y1);
-  } @else {
-    clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
-  }
-}
-
-// Backend
-$terminal-bar-height: 3.5%;
-$terminal-button-radius: 0.65%;
-$terminal-button-margin: 0.2%;
-$terminal-cursor-width: 1%;
-$terminal-cursor-height: 4%;
-
-@mixin terminal-button($n) {
-  $x1: (100% - $window-width) / 2;
-  $y1: (100% - $window-height) / 2 + $y-offset;
-  clip-path: circle($terminal-button-radius at ($x1 + ($terminal-button-radius * 2 + $terminal-button-margin) * $n) ($y1 + $terminal-bar-height / 2));
-}
-
-// Frontend
-$header-height: 6%;
-$mouse-start-x: 78%;
-$mouse-start-y: 24%;
-$mouse-base-coords: (
-        x1: 0%,
-        y1: 0%,
-        x2: 2%,
-        y2: 2%,
-        x3: 1%,
-        y3: 4%
-);
-$search-bar-height: 4%;
-$search-bar-width: 20%;
-
-@function mouse-coords($coords, $x, $y) {
-  @return polygon(
-                  #{map-get($coords, x1) + $x} #{map-get($coords, y1) + $y},
-                  #{map-get($coords, x2) + $x} #{map-get($coords, y2) + $y},
-                  #{map-get($coords, x3) + $x} #{map-get($coords, y3) + $y}
-  );
-}
-
-// AI
-@mixin neuron($coords) {
-  z-index: 1;
-
-  .shard {
-    background-color: rgb(224, 224, 224);
-    clip-path: circle(4% at nth($coords, 1) (nth($coords, 2) + $y-offset));
-  }
-}
-
-@mixin synapse($from, $to) {
-  z-index: 0;
-
-  .shard {
-    background-color: rgb(0, 0, 0);
-    clip-path: polygon(
-                    nth($from, 1) nth($from, 2) - 0.5% + $y-offset,
-                    nth($to, 1) nth($to, 2) - 0.5% + $y-offset,
-                    nth($to, 1) nth($to, 2) + 0.5% + $y-offset,
-                    nth($from, 1) nth($from, 2) + 0.5% + $y-offset
-    )
-  }
 }
 
 .app {
@@ -185,16 +37,17 @@ $search-bar-width: 20%;
       &:nth-child(1),
       &:nth-child(2),
       &:nth-child(6),
-      &:nth-child(11) {
+      &:nth-child(12),
+      &:nth-child(13) {
         z-index: 0;
       }
 
       &:nth-child(3),
       &:nth-child(4),
       &:nth-child(5),
-      &:nth-child(8),
       &:nth-child(9),
-      &:nth-child(10) {
+      &:nth-child(10),
+      &:nth-child(11) {
         z-index: 1;
       }
 
@@ -210,7 +63,7 @@ $search-bar-width: 20%;
         width: 100%;
       }
 
-      @for $i from 1 through 11 {
+      @for $i from 1 through $n-shards {
         $delay: ($i - 1) * $transition-stagger;
         &:nth-child(#{$i}) .shard {
           transition-delay: $delay;
@@ -233,6 +86,89 @@ $search-bar-width: 20%;
       p {
         font-size: 2.5vmin;
         line-height: 3.5vmin;
+      }
+    }
+
+    .frontend-contents {
+      color: $text-colour;
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      position: relative;
+      transition: opacity ease-in 50ms;
+      width: 100%;
+      z-index: 2;
+
+      > * {
+        position: absolute;
+      }
+
+      .profile-name {
+        @include content-placeholder-line('h1');
+        left: (100% - $window-width) / 2 + $page-side-margin + 5%;
+        top: (100% - $window-height) / 2 + $header-height + 34% + $y-offset;
+        width: 10%;
+      }
+
+      .profile-sub {
+        @include content-placeholder-line('text');
+        left: (100% - $window-width) / 2 + $page-side-margin + 3%;
+        top: (100% - $window-height) / 2 + $header-height + 38.5% + $y-offset;
+        width: 14%;
+      }
+
+      .post {
+        &__user {
+          @include content-placeholder-line('text');
+          left: (100% - $window-width) / 2 + 32.75%;
+        }
+
+        &__line {
+          @include content-placeholder-line('text');
+          left: (100% - $window-width) / 2 + 29.4%;
+        }
+
+        &--1 {
+          &__user {
+            top: (100% - $window-height) / 2 + $header-height + 12.5% - $content-placeholder-height-2 / 2 + $y-offset;
+            width: 10%;
+          }
+          &__line--1 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $y-offset;
+            width: 42%;
+          }
+          &__line--2 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 + $y-offset;
+            width: 42%;
+          }
+          &__line--3 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 2 + $y-offset;
+            width: 12%;
+          }
+        }
+
+        &--2 {
+          &__user {
+            top: (100% - $window-height) / 2 + $header-height + 12.5% - $content-placeholder-height-2 / 2 + $post-1-height + $posts-y-margin + $y-offset;
+            width: 13%;
+          }
+          &__line--1 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $post-1-height + $posts-y-margin + $y-offset;
+            width: 42%;
+          }
+          &__line--2 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 + $post-1-height + $posts-y-margin + $y-offset;
+            width: 42%;
+          }
+          &__line--3 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 2 + $post-1-height + $posts-y-margin + $y-offset;
+            width: 42%;
+          }
+          &__line--4 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 3 + $post-1-height + $posts-y-margin + $y-offset;
+            width: 23%;
+          }
+        }
       }
     }
   }
@@ -313,7 +249,7 @@ $search-bar-width: 20%;
 
   &.ai {
     &, .caption-text {
-      background-color: $ghost-white;
+      background-color: $dark-vanilla;
     }
   }
 
@@ -370,20 +306,30 @@ $search-bar-width: 20%;
 
         &:nth-child(8) .shard {
           background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 0%);
+          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
         }
 
         &:nth-child(9) .shard {
           background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 50%);
+          clip-path: circle(0 at 0% 0%);
         }
 
         &:nth-child(10) .shard {
           background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 100%);
+          clip-path: circle(0 at 0% 50%);
         }
 
         &:nth-child(11) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 100%);
+        }
+
+        &:nth-child(12) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+        }
+
+        &:nth-child(13) .shard {
           background-color: rgba(0, 0, 0, 0);
           clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
         }
@@ -404,35 +350,25 @@ $search-bar-width: 20%;
 
         &:nth-child(2) .shard {
           //background-color: rgb(224, 224, 224);
-          background-color: #FFFFFF;
+          background-color: rgb(240, 240, 240);
+          //background-color: #FFFFFF;
           @include window-body($header-height, true);
         }
 
+        // User icon
         &:nth-child(3) .shard {
-          $x1: 100% - (100% - $window-width) / 2 - 3.5%;
-          $y1: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
+          $x: 100% - (100% - $window-width) / 2 - 3.5%;
+          $y: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
+          @include user-icon($x, $y);
           background-color: rgb(255, 255, 255);
-          clip-path: circle(1.5% at $x1 $y1);
-
-          &:after {
-            background-image: url('assets/svg/person.svg');
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: 55%;
-            content: ' ';
-            height: 6%;
-            left: $x1 - 1.5%;
-            position: absolute;
-            top: $y1 - 3%;
-            width: 3%;
-          }
         }
 
+        // Logo
         &:nth-child(4) .shard {
-          $x1: (100% - $window-width) / 2 + 3.5%;
-          $y1: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
+          $x: (100% - $window-width) / 2 + 3.5%;
+          $y: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
           background-color: rgb(255, 255, 255);
-          clip-path: circle(1.5% at $x1 $y1);
+          clip-path: circle(1.5% at $x $y);
 
           &:after {
             background-image: url('assets/svg/whatshot.svg');
@@ -441,17 +377,19 @@ $search-bar-width: 20%;
             background-size: 55%;
             content: ' ';
             height: 6%;
-            left: $x1 - 1.5%;
+            left: $x - 1.5%;
             position: absolute;
-            top: $y1 - 3%;
+            top: $y - 3%;
             width: 3%;
           }
         }
 
+        // Big person
         &:nth-child(5) .shard {
-          $x: (100% - $window-width) / 2 + 12%;
+          $x: (100% - $window-width) / 2 + 10% + $page-side-margin;
           $y: (100% - $window-height) / 2 + $header-height + 20% + $y-offset;
-          background-color: #FFFFFF;
+          background-color: rgb(240, 240, 240);
+          //background-color: #FFFFFF;
           clip-path: circle(6% at $x $y);
 
           &:after {
@@ -468,8 +406,59 @@ $search-bar-width: 20%;
           }
         }
 
-        // Search bar
+        // Side container
         &:nth-child(6) .shard {
+          //background-color: rgb(240, 240, 240);
+          background-color: #FFFFFF;
+          $x1: (100% - $window-width) / 2 + $page-side-margin;
+          $y1: (100% - $window-height) / 2 + $header-height + 8% + $y-offset;
+          $x2: $x1 + 20%;
+          $y2: $y1 + 36%;
+          clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
+        }
+
+        // Mouse
+        &:nth-child(7) .shard {
+          background-color: rgb(0, 0, 0);
+          clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
+
+          animation: move-around 5s ease-in-out infinite 0.75s;
+        }
+
+        // Post container 1
+        &:nth-child(8) .shard {
+          //background-color: rgb(240, 240, 240);
+          background-color: #FFFFFF;
+          $x1: (100% - $window-width) / 2 + 28%;
+          $y1: (100% - $window-height) / 2 + $header-height + 8% + $y-offset;
+          $x2: 100% - (100% - $window-width) / 2% - $page-side-margin;
+          $y2: $y1 + $post-1-height;
+          clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
+        }
+
+        // Post 1 user icon
+        &:nth-child(9) .shard {
+          $x: (100% - $window-width) / 2 + 30.5%;
+          $y: (100% - $window-height) / 2 + $header-height + 12.5% + $y-offset;
+          @include user-icon($x, $y);
+          background-color: rgb(240, 240, 240);
+        }
+
+        // Post 2 user icon
+        &:nth-child(10) .shard {
+          $x: (100% - $window-width) / 2 + 30.5%;
+          $y: (100% - $window-height) / 2 + $header-height + 12.5% + $post-1-height + $posts-y-margin + $y-offset;
+          @include user-icon($x, $y);
+          background-color: rgb(240, 240, 240);
+        }
+
+        &:nth-child(11) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 100%);
+        }
+
+        // Search bar
+        &:nth-child(12) .shard {
           background-color: rgb(255, 255, 255);
           $x1: (100% - $window-width) / 2 + 8%;
           $y1: (100% - $window-height) / 2 + ($header-height - $search-bar-height) / 2 + $y-offset;
@@ -494,37 +483,20 @@ $search-bar-width: 20%;
           }
         }
 
-        // Mouse
-        &:nth-child(7) .shard {
-          background-color: rgb(0, 0, 0);
-          clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
-
-          animation: move-around 5s ease-in-out infinite 0.75s;
-        }
-
-        &:nth-child(8) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 0%);
-        }
-
-        &:nth-child(9) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 50%);
-        }
-
-        &:nth-child(10) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 100%);
-        }
-
-        &:nth-child(11) .shard {
-          background-color: rgb(240, 240, 240);
-          $x1: (100% - $window-width) / 2 + 4%;
-          $y1: (100% - $window-height) / 2 + $header-height + 8% + $y-offset;
-          $x2: $x1 + 16%;
-          $y2: $y1 + 40%;
+        // Post container 2
+        &:nth-child(13) .shard {
+          background-color: #FFFFFF;
+          $x1: (100% - $window-width) / 2 + 28%;
+          $y1: (100% - $window-height) / 2 + $header-height + 8% + $post-1-height + $posts-y-margin + $y-offset;
+          $x2: 100% - (100% - $window-width) / 2% - $page-side-margin;
+          $y2: $y1 + $post-2-height;
           clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
         }
+      }
+
+      .frontend-contents {
+        opacity: 1;
+        transition: opacity ease-out 0.2s 0.8s;
       }
     }
 
@@ -568,24 +540,34 @@ $search-bar-width: 20%;
           }
         }
 
+        &:nth-child(8) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+        }
+
         // I1
-        &:nth-child(8) {
+        &:nth-child(9) {
           @include neuron(40% 30%);
         }
 
         // I2
-        &:nth-child(9) {
+        &:nth-child(10) {
           @include neuron(40% 50%);
         }
 
         // I3
-        &:nth-child(10) {
+        &:nth-child(11) {
           @include neuron(40% 70%);
         }
 
         // I2 -> H1
-        &:nth-child(11) {
+        &:nth-child(12) {
           @include synapse(40% 50%, 50% 40%);
+        }
+
+        &:nth-child(13) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
         }
       }
     }
@@ -663,7 +645,7 @@ $search-bar-width: 20%;
       }
 
       p {
-        margin: 2vh ;
+        margin: 2vh;
       }
     }
 
@@ -733,87 +715,3 @@ $search-bar-width: 20%;
   }
 }
 
-@keyframes cursor-blink {
-  0% {
-    opacity: 0.75;
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0.75;
-  }
-}
-
-@keyframes move-around {
-  0% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
-  }
-  8% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
-  }
-  21% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 20%, $mouse-start-y + 20%);
-  }
-  39% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 20%, $mouse-start-y + 20%);
-  }
-  50% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 30%, $mouse-start-y + 10%);
-  }
-  75% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 30%, $mouse-start-y + 10%);
-  }
-  84% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 35%, $mouse-start-y + 18%);
-  }
-  91% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x - 35%, $mouse-start-y + 18%);
-  }
-  100% {
-    clip-path: mouse-coords($mouse-base-coords, $mouse-start-x, $mouse-start-y);
-  }
-}
-
-@keyframes emphasis {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.03);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes tutorial {
-  0% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  15% {
-    transform: translateY(-2px);
-  }
-  30% {
-    transform: translateY(0);
-  }
-  45% {
-    transform: translateY(-2px);
-  }
-  60% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes tutorial-fade-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}

@@ -18,7 +18,7 @@ class App extends React.Component {
       'contacts'
     ];
 
-    this.nShards = 11;
+    this.nShards = 13;
 
     this.terminalSub = null;
     this.terminalPrefix = (folder = '~') => `samuelezanella:${folder} user $ `;
@@ -210,6 +210,19 @@ class App extends React.Component {
               <p key={`terminal-line-${lineIndex}`}>{line}</p>
             ))}
           </div>
+          <div className='frontend-contents'>
+            <div className='profile-name'></div>
+            <div className='profile-sub'></div>
+            <div className='post__user post--1__user'></div>
+            <div className='post__line post--1__line--1'></div>
+            <div className='post__line post--1__line--2'></div>
+            <div className='post__line post--1__line--3'></div>
+            <div className='post__user post--2__user'></div>
+            <div className='post__line post--2__line--1'></div>
+            <div className='post__line post--2__line--2'></div>
+            <div className='post__line post--2__line--3'></div>
+            <div className='post__line post--2__line--4'></div>
+          </div>
         </div>
 
         <Caption shown={containerState === 'frontend'}
@@ -235,7 +248,7 @@ class App extends React.Component {
                  subject='Artificial Intelligence'
                  onClick={this.toggleCaptionExpanded}>
           <p>I have always been fascinated by Artificial Intelligence.</p>
-          <p>I have taken Udemy courses and tinkered with <span className='accent'>Keras</span> and <span className='accent'>Tensorflow</span>, experimenting with simple <span className='accent'>ANNs</span> and <span className='accent'>CNNs</span></p>
+          <p>I have taken Udemy courses and tinkered with <span className='accent'>Keras</span> and <span className='accent'>Tensorflow</span>, experimenting with simple <span className='accent'>ANNs</span> and <span className='accent'>CNNs</span>.</p>
           <p>I am also interested in the topic of <span className='accent'>AI safety</span>, and follow several sources that talk about it.</p>
         </Caption>
         <div className={`caption-overlay ${captionExpanded ? 'active' : ''}`}
