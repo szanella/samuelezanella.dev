@@ -37,7 +37,8 @@
       &:nth-child(1),
       &:nth-child(2),
       &:nth-child(6),
-      &:nth-child(12) {
+      &:nth-child(12),
+      &:nth-child(13) {
         z-index: 0;
       }
 
@@ -137,12 +138,35 @@
             width: 42%;
           }
           &__line--2 {
-            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * 1.8 + $y-offset;
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 + $y-offset;
             width: 42%;
           }
           &__line--3 {
-            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * 3.6 + $y-offset;
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 2 + $y-offset;
             width: 12%;
+          }
+        }
+
+        &--2 {
+          &__user {
+            top: (100% - $window-height) / 2 + $header-height + 12.5% - $content-placeholder-height-2 / 2 + $post-1-height + $posts-y-margin + $y-offset;
+            width: 13%;
+          }
+          &__line--1 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $post-1-height + $posts-y-margin + $y-offset;
+            width: 42%;
+          }
+          &__line--2 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 + $post-1-height + $posts-y-margin + $y-offset;
+            width: 42%;
+          }
+          &__line--3 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 2 + $post-1-height + $posts-y-margin + $y-offset;
+            width: 42%;
+          }
+          &__line--4 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 3 + $post-1-height + $posts-y-margin + $y-offset;
+            width: 23%;
           }
         }
       }
@@ -304,6 +328,11 @@
           background-color: rgba(0, 0, 0, 0);
           clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
         }
+
+        &:nth-child(13) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+        }
       }
 
       .terminal-text {
@@ -396,14 +425,14 @@
           animation: move-around 5s ease-in-out infinite 0.75s;
         }
 
-        // Center container
+        // Post container 1
         &:nth-child(8) .shard {
           //background-color: rgb(240, 240, 240);
           background-color: #FFFFFF;
           $x1: (100% - $window-width) / 2 + 28%;
           $y1: (100% - $window-height) / 2 + $header-height + 8% + $y-offset;
           $x2: 100% - (100% - $window-width) / 2% - $page-side-margin;
-          $y2: $y1 + 22.5%;
+          $y2: $y1 + $post-1-height;
           clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
         }
 
@@ -415,9 +444,12 @@
           background-color: rgb(240, 240, 240);
         }
 
+        // Post 2 user icon
         &:nth-child(10) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 50%);
+          $x: (100% - $window-width) / 2 + 30.5%;
+          $y: (100% - $window-height) / 2 + $header-height + 12.5% + $post-1-height + $posts-y-margin + $y-offset;
+          @include user-icon($x, $y);
+          background-color: rgb(240, 240, 240);
         }
 
         &:nth-child(11) .shard {
@@ -449,6 +481,16 @@
             top: $y1;
             width: $search-bar-height / 2;
           }
+        }
+
+        // Post container 2
+        &:nth-child(13) .shard {
+          background-color: #FFFFFF;
+          $x1: (100% - $window-width) / 2 + 28%;
+          $y1: (100% - $window-height) / 2 + $header-height + 8% + $post-1-height + $posts-y-margin + $y-offset;
+          $x2: 100% - (100% - $window-width) / 2% - $page-side-margin;
+          $y2: $y1 + $post-2-height;
+          clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
         }
       }
 
@@ -521,6 +563,11 @@
         // I2 -> H1
         &:nth-child(12) {
           @include synapse(40% 50%, 50% 40%);
+        }
+
+        &:nth-child(13) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
         }
       }
     }

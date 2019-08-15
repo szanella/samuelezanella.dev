@@ -1,12 +1,12 @@
 // General
 $aspect-ratio: 1/2;
-$transition-stagger: 0.05s;
+$transition-stagger: 0.04s;
 $transition-duration: 0.5s;
 $intro-transition-duration: 0.25s;
 $caption-text-transition-duration: 0.25s;
 $caption-text-transition-delay: 0.9s;
 $caption-text-exit-duration: 0.25s;
-$n-shards: 12;
+$n-shards: 13;
 
 // Window
 $window-width: 85%;
@@ -40,4 +40,8 @@ $content-placeholder-colour-light: #E1E1E1;
 $content-placeholder-height-1: 2.5%;
 $content-placeholder-border-radius-1: calc(100vmax * #{$aspect-ratio} * 0.125);
 $content-placeholder-height-2: 2.1% ;
+$content-placeholder-line-height-2: 1.8;
 $content-placeholder-border-radius-2: calc(100vmax * #{$aspect-ratio} * 0.105);
+$post-1-height: 22.5%;
+$post-2-height: 26%;
+$posts-y-margin: 4%;

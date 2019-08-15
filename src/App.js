@@ -18,7 +18,7 @@ class App extends React.Component {
       'contacts'
     ];
 
-    this.nShards = 12;
+    this.nShards = 13;
 
     this.terminalSub = null;
     this.terminalPrefix = (folder = '~') => `samuelezanella:${folder} user $ `;
@@ -217,6 +217,11 @@ class App extends React.Component {
             <div className='post__line post--1__line--1'></div>
             <div className='post__line post--1__line--2'></div>
             <div className='post__line post--1__line--3'></div>
+            <div className='post__user post--2__user'></div>
+            <div className='post__line post--2__line--1'></div>
+            <div className='post__line post--2__line--2'></div>
+            <div className='post__line post--2__line--3'></div>
+            <div className='post__line post--2__line--4'></div>
           </div>
         </div>
 
