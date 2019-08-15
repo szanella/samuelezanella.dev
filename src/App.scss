@@ -96,7 +96,7 @@
       position: relative;
       transition: opacity ease-in 50ms;
       width: 100%;
-      z-index: 5;
+      z-index: 2;
 
       > * {
         position: absolute;
@@ -114,6 +114,37 @@
         left: (100% - $window-width) / 2 + $page-side-margin + 3%;
         top: (100% - $window-height) / 2 + $header-height + 38.5% + $y-offset;
         width: 14%;
+      }
+
+      .post {
+        &__user {
+          @include content-placeholder-line('text');
+          left: (100% - $window-width) / 2 + 32.75%;
+        }
+
+        &__line {
+          @include content-placeholder-line('text');
+          left: (100% - $window-width) / 2 + 29.4%;
+        }
+
+        &--1 {
+          &__user {
+            top: (100% - $window-height) / 2 + $header-height + 12.5% - $content-placeholder-height-2 / 2 + $y-offset;
+            width: 10%;
+          }
+          &__line--1 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $y-offset;
+            width: 42%;
+          }
+          &__line--2 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * 1.8 + $y-offset;
+            width: 42%;
+          }
+          &__line--3 {
+            top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * 3.6 + $y-offset;
+            width: 12%;
+          }
+        }
       }
     }
   }
@@ -300,6 +331,7 @@
           $x: 100% - (100% - $window-width) / 2 - 3.5%;
           $y: (100% - $window-height) / 2 + $header-height / 2 + $y-offset;
           @include user-icon($x, $y);
+          background-color: rgb(255, 255, 255);
         }
 
         // Logo
@@ -371,13 +403,16 @@
           $x1: (100% - $window-width) / 2 + 28%;
           $y1: (100% - $window-height) / 2 + $header-height + 8% + $y-offset;
           $x2: 100% - (100% - $window-width) / 2% - $page-side-margin;
-          $y2: $y1 + 40%;
+          $y2: $y1 + 22.5%;
           clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
         }
 
+        // Post 1 user icon
         &:nth-child(9) .shard {
-          background-color: rgba(0, 0, 0, 0);
-          clip-path: circle(0 at 0% 0%);
+          $x: (100% - $window-width) / 2 + 30.5%;
+          $y: (100% - $window-height) / 2 + $header-height + 12.5% + $y-offset;
+          @include user-icon($x, $y);
+          background-color: rgb(240, 240, 240);
         }
 
         &:nth-child(10) .shard {

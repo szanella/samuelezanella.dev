@@ -213,6 +213,10 @@ class App extends React.Component {
           <div className='frontend-contents'>
             <div className='profile-name'></div>
             <div className='profile-sub'></div>
+            <div className='post__user post--1__user'></div>
+            <div className='post__line post--1__line--1'></div>
+            <div className='post__line post--1__line--2'></div>
+            <div className='post__line post--1__line--3'></div>
           </div>
         </div>
 
