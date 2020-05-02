@@ -35,8 +35,8 @@ $mouse-base-coords: (
 $search-bar-height: 4%;
 $search-bar-width: 24%;
 $page-side-margin: 4%;
-$content-placeholder-colour-dark: #D2D2D2;
-$content-placeholder-colour-light: #E1E1E1;
+$content-placeholder-colour-dark: #d2d2d2;
+$content-placeholder-colour-light: #e1e1e1;
 $content-placeholder-height-1: 2.5%;
 $content-placeholder-border-radius-1: calc(100vmax * #{$aspect-ratio} * 0.125);
 $content-placeholder-height-2: 2.1% ;
@@ -45,3 +45,7 @@ $content-placeholder-border-radius-2: calc(100vmax * #{$aspect-ratio} * 0.105);
 $post-1-height: 22.5%;
 $post-2-height: 26%;
 $posts-y-margin: 4%;
+
+// PM
+$trello-column-width: 15%;
+$trello-column-gutter: 3%;

@@ -117,6 +117,16 @@
   clip-path: circle($terminal-button-radius at ($x1 + ($terminal-button-radius * 2 + $terminal-button-margin) * $n) ($y1 + $terminal-bar-height / 2));
 }
 
+// PM
+@mixin trello-column($index) {
+  background-color: $trello-column-bg;
+  $x1: (100% - $window-width) / 2 + $page-side-margin + ($trello-column-width + $trello-column-gutter) * $index;
+  $y1: (100% - $window-height) / 2 + $header-height + 5% + $y-offset;
+  $x2: $x1 + $trello-column-width;
+  $y2: 100% - (100% - $window-height) / 2 - 5% + $y-offset;
+  clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
+}
+
 // AI
 @mixin neuron($coords) {
   z-index: 1;

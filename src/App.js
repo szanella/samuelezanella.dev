@@ -14,6 +14,7 @@ class App extends React.Component {
       'intro',
       'frontend',
       'backend',
+      'pm',
       'ai',
       'contacts'
     ];
@@ -148,7 +149,7 @@ class App extends React.Component {
   }
 
   toggleCaptionExpanded(event = null) {
-    if (!['frontend', 'backend', 'ai'].includes(this.state.containerState)) {
+    if (!['frontend', 'backend', 'pm', 'ai'].includes(this.state.containerState)) {
       return;
     }
 
@@ -241,6 +242,15 @@ class App extends React.Component {
                  onClick={this.toggleCaptionExpanded}>
           <p>I build <span className='accent'>REST</span> and <span className='accent'>GraphQL</span> backends, mainly in <span className='accent'>Ruby on Rails</span> and with relational databases.</p>
           <p>I am also familiar with <span className='accent'>Node.js</span> and non-relational databases such as <span className='accent'>MongoDB</span>.</p>
+        </Caption>
+        <Caption shown={containerState === 'pm'}
+                 expanded={captionExpanded}
+                 predicate='do'
+                 subject='Project Management'
+                 onClick={this.toggleCaptionExpanded}>
+          <p>I have always been fascinated by Artificial Intelligence.</p>
+          <p>I have taken Udemy courses and tinkered with <span className='accent'>Keras</span> and <span className='accent'>Tensorflow</span>, experimenting with simple <span className='accent'>ANNs</span> and <span className='accent'>CNNs</span>.</p>
+          <p>I am also interested in the topic of <span className='accent'>AI safety</span>, and follow several sources that talk about it.</p>
         </Caption>
         <Caption shown={containerState === 'ai'}
                  expanded={captionExpanded}

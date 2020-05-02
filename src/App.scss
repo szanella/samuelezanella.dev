@@ -133,14 +133,17 @@
             top: (100% - $window-height) / 2 + $header-height + 12.5% - $content-placeholder-height-2 / 2 + $y-offset;
             width: 10%;
           }
+
           &__line--1 {
             top: (100% - $window-height) / 2 + $header-height + 18% + $y-offset;
             width: 42%;
           }
+
           &__line--2 {
             top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 + $y-offset;
             width: 42%;
           }
+
           &__line--3 {
             top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 2 + $y-offset;
             width: 12%;
@@ -152,18 +155,22 @@
             top: (100% - $window-height) / 2 + $header-height + 12.5% - $content-placeholder-height-2 / 2 + $post-1-height + $posts-y-margin + $y-offset;
             width: 13%;
           }
+
           &__line--1 {
             top: (100% - $window-height) / 2 + $header-height + 18% + $post-1-height + $posts-y-margin + $y-offset;
             width: 42%;
           }
+
           &__line--2 {
             top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 + $post-1-height + $posts-y-margin + $y-offset;
             width: 42%;
           }
+
           &__line--3 {
             top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 2 + $post-1-height + $posts-y-margin + $y-offset;
             width: 42%;
           }
+
           &__line--4 {
             top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 3 + $post-1-height + $posts-y-margin + $y-offset;
             width: 23%;
@@ -247,6 +254,12 @@
     }
   }
 
+  &.pm {
+    &, .caption-text {
+      background-color: $eggshell;
+    }
+  }
+
   &.ai {
     &, .caption-text {
       background-color: $meat-brown;
@@ -326,12 +339,12 @@
 
         &:nth-child(12) .shard {
           background-color: rgba(0, 0, 0, 0);
-          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+          clip-path: polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%);
         }
 
         &:nth-child(13) .shard {
           background-color: rgba(0, 0, 0, 0);
-          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+          clip-path: polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%);
         }
       }
 
@@ -500,6 +513,76 @@
       }
     }
 
+    &.pm {
+      .shard-wrap {
+        &:nth-child(1) .shard {
+          background-color: $trello-topbar;
+          @include window-header($header-height, true);
+        }
+
+        &:nth-child(2) .shard {
+          background-color: $trello-content;
+          @include window-body($header-height, true);
+        }
+
+        &:nth-child(3) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 50% 50%);
+        }
+
+        &:nth-child(4) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 50% 50%);
+        }
+
+        &:nth-child(5) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 50% 50%);
+        }
+
+        &:nth-child(6) .shard {
+
+          @include trello-column(0)
+        }
+
+        &:nth-child(7) .shard {
+          background-color: rgb(255, 255, 255);
+          clip-path: mouse-coords($mouse-base-coords, 0%, 100%);
+        }
+
+        &:nth-child(8) .shard {
+          @include trello-column(1)
+        }
+
+        &:nth-child(9) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 0%);
+        }
+
+        &:nth-child(10) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 50%);
+        }
+
+        &:nth-child(11) .shard {
+          background-color: rgba(0, 0, 0, 0);
+          clip-path: circle(0 at 0% 100%);
+        }
+
+        &:nth-child(12) .shard {
+          @include trello-column(2)
+        }
+
+        &:nth-child(13) .shard {
+          @include trello-column(3)
+        }
+      }
+
+      .terminal-text {
+        opacity: 1;
+      }
+    }
+
     &.ai {
       .shard-wrap {
         // I3 -> H2 -> O1
@@ -567,7 +650,7 @@
 
         &:nth-child(13) .shard {
           background-color: rgba(0, 0, 0, 0);
-          clip-path: polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%);
+          clip-path: polygon(100% 0%, 100% 0%, 100% 0%, 100% 0%);
         }
       }
     }
@@ -575,6 +658,7 @@
 
   &.frontend.caption-expanded,
   &.backend.caption-expanded,
+  &.pm.caption-expanded,
   &.ai.caption-expanded {
     @include shards-raised;
   }
