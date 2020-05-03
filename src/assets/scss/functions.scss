@@ -1,7 +1,15 @@
+@import './variables';
+
 @function mouse-coords($coords, $x, $y) {
   @return polygon(
                   #{map-get($coords, x1) + $x} #{map-get($coords, y1) + $y},
                   #{map-get($coords, x2) + $x} #{map-get($coords, y2) + $y},
                   #{map-get($coords, x3) + $x} #{map-get($coords, y3) + $y}
   );
+}
+
+@function trello-column-corner($index) {
+  $x: (100% - $window-width) / 2 + $page-side-margin + ($trello-column-width + $trello-column-gutter) * $index;
+  $y: (100% - $window-height) / 2 + $header-height + 5% + $y-offset;
+  @return $x, $y;
 }

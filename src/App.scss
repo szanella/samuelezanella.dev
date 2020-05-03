@@ -94,7 +94,7 @@
       height: 100%;
       opacity: 0;
       pointer-events: none;
-      position: relative;
+      position: absolute;
       transition: opacity ease-in 50ms;
       width: 100%;
       z-index: 2;
@@ -175,6 +175,42 @@
             top: (100% - $window-height) / 2 + $header-height + 18% + $content-placeholder-height-2 * $content-placeholder-line-height-2 * 3 + $post-1-height + $posts-y-margin + $y-offset;
             width: 23%;
           }
+        }
+      }
+    }
+
+    .trello-columns {
+      height: 100%;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      width: 100%;
+      z-index: 2;
+
+
+      .column {
+        height: $window-height - $header-height - 10%;
+        position: absolute;
+        width: $trello-column-width;
+
+        &--1 {
+          left: nth(trello-column-corner(0), 1);
+          top: nth(trello-column-corner(0), 2);
+        }
+
+        &--2 {
+          left: nth(trello-column-corner(1), 1);
+          top: nth(trello-column-corner(1), 2);
+        }
+
+        &--3 {
+          left: nth(trello-column-corner(2), 1);
+          top: nth(trello-column-corner(2), 2);
+        }
+
+        &--4 {
+          left: nth(trello-column-corner(3), 1);
+          top: nth(trello-column-corner(4), 2);
         }
       }
     }
@@ -541,7 +577,6 @@
         }
 
         &:nth-child(6) .shard {
-
           @include trello-column(0)
         }
 
@@ -578,7 +613,7 @@
         }
       }
 
-      .terminal-text {
+      .trello-columns {
         opacity: 1;
       }
     }

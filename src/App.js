@@ -224,6 +224,12 @@ class App extends React.Component {
             <div className='post__line post--2__line--3'></div>
             <div className='post__line post--2__line--4'></div>
           </div>
+          <div className='trello-columns'>
+            <div className='column column--1'></div>
+            <div className='column column--2'></div>
+            <div className='column column--3'></div>
+            <div className='column column--4'></div>
+          </div>
         </div>
 
         <Caption shown={containerState === 'frontend'}
