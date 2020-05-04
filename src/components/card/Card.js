@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
+import React from 'react';
+import './Card.scss';
 
-class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      nRows: Math.random()
+const Card = ({nRows, lastRowLength}) => (
+  <div className='trello-card'>
+    {
+      [...Array(nRows - 1).fill(3)].concat(lastRowLength).map((rowLength, i) => (
+        <div key={i} className={`card-line card-line--${rowLength}`}></div>
+      ))
     }
-  }
-}
+  </div>
+);
 
 export default Card;

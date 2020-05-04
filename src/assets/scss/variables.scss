@@ -35,6 +35,7 @@ $mouse-base-coords: (
 $search-bar-height: 4%;
 $search-bar-width: 24%;
 $page-side-margin: 4%;
+$content-placeholder-colour-darker: #b6b6b6;
 $content-placeholder-colour-dark: #d2d2d2;
 $content-placeholder-colour-light: #e1e1e1;
 $content-placeholder-height-1: 2.5%;
@@ -49,3 +50,7 @@ $posts-y-margin: 4%;
 // PM
 $trello-column-width: 15%;
 $trello-column-gutter: 3%;
+$trello-column-padding: calc(var(--vh, 1vh) * 2);
+$trello-card-gutter: calc(var(--vh, 1vh) * 2);
+$trello-card-line-height: calc(var(--vh, 1vh) * 1.25);
+$trello-card-shadow: 0 1px 0 rgba(9,30,66,.25)

@@ -5,6 +5,7 @@ import handCursor from './assets/svg/hand-cursor.svg';
 import {concatMap, delay, scan} from 'rxjs/operators';
 import {of, concat} from 'rxjs';
 import Caption from './components/Caption';
+import Card from './components/card/Card';
 
 class App extends React.Component {
   constructor(props) {
@@ -225,10 +226,22 @@ class App extends React.Component {
             <div className='post__line post--2__line--4'></div>
           </div>
           <div className='trello-columns'>
-            <div className='column column--1'></div>
-            <div className='column column--2'></div>
-            <div className='column column--3'></div>
-            <div className='column column--4'></div>
+            <div className='column column--1'>
+              <div className='column__title column__title--2'></div>
+              <Card nRows={3} lastRowLength={1}></Card>
+              <Card nRows={2} lastRowLength={2}></Card>
+              <Card nRows={1} lastRowLength={2}></Card>
+              <Card nRows={2} lastRowLength={3}></Card>
+            </div>
+            <div className='column column--2'>
+              <div className='column__title column__title--1'></div>
+            </div>
+            <div className='column column--3'>
+              <div className='column__title column__title--3'></div>
+            </div>
+            <div className='column column--4'>
+              <div className='column__title column__title--2'></div>
+            </div>
           </div>
         </div>
 

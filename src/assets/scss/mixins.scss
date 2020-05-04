@@ -129,6 +129,16 @@
   clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
 }
 
+@mixin trello-card-line($tint) {
+  @if $tint == 'dark' {
+    background-color: $content-placeholder-colour-darker;
+  } @else {
+    background-color: $content-placeholder-colour-light;
+  }
+  border-radius: $content-placeholder-border-radius-2;
+  height: $trello-card-line-height;
+}
+
 // AI
 @mixin neuron($coords) {
   z-index: 1;
