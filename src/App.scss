@@ -233,6 +233,11 @@
             width: 55%
           }
         }
+
+        > div {
+          opacity: 0;
+          transition: opacity ease-in 50ms;
+        }
       }
     }
   }
@@ -636,6 +641,17 @@
 
       .trello-columns {
         opacity: 1;
+
+        .column > div {
+          opacity: 1;
+          transition: opacity ease-out 120ms;
+
+          @for $i from 1 through 10 {
+            &:nth-child(#{$i}) {
+              transition-delay: #{$i * 85 + 500}ms;
+            }
+          }
+        }
       }
     }
 
