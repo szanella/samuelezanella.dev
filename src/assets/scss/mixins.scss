@@ -42,9 +42,9 @@
           background-color: rgba(224, 224, 224, 0);
           $x: 50%;
           $y: 0%;
-          @if $i == 1 or $i == 2 or $i == 6 or $i == 12 or $i == 13 {
+          @if $i == 1 or $i == 2 or $i == 6 or $i == 8 or $i == 12 or $i == 13 {
             clip-path: polygon($x $y, $x $y, $x $y, $x $y);
-          } @else if $i == 3 or $i == 4 or $i == 5 or $i == 8 or $i == 9 or $i == 10 {
+          } @else if $i == 3 or $i == 4 or $i == 5 or $i == 9 or $i == 10 {
             clip-path: circle(0% at $x $y);
           } @else {
             clip-path: polygon($x $y, $x $y, $x $y);
