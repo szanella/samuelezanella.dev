@@ -6,6 +6,7 @@
   --shards-container-height: calc(var(--vh, 1vh) * 90);
   --caption-heading-height: calc(var(--vh, 1vh) * 10);
   --caption-body-height: calc(var(--vh, 1vh) * 90);
+  --shards-vh: calc(var(--actual-shards-height, 1vh) / 100)
 }
 
 .app {
@@ -219,6 +220,7 @@
 
         &__title {
           @include trello-card-line('dark');
+          flex: 0 0 auto;
           margin-bottom: $trello-card-gutter;
 
           &--1 {

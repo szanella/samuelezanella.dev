@@ -50,7 +50,9 @@ $posts-y-margin: 4%;
 // PM
 $trello-column-width: 15%;
 $trello-column-gutter: 3%;
-$trello-column-padding: calc(var(--vh, 1vh) * 2);
-$trello-card-gutter: calc(var(--vh, 1vh) * 2);
-$trello-card-line-height: calc(var(--vh, 1vh) * 1.25);
+$trello-column-padding: calc(var(--shards-vh) * 2);
+$trello-card-gutter: calc(var(--shards-vh) * 2);
+$trello-card-padding: calc(var(--shards-vh) * 0.75) calc(var(--shards-vh) * 1);
+$trello-card-line-height: calc(var(--shards-vh) * 1.25);
+$trello-card-line-margin: calc(var(--shards-vh) * 1) 0;
 $trello-card-shadow: 0 1px 0 rgba(9,30,66,.25)

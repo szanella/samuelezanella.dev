@@ -67,6 +67,7 @@ class App extends React.Component {
     this.toState = this.toState.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
     this.toggleCaptionExpanded = this.toggleCaptionExpanded.bind(this);
+    this.setHeight = this.setHeight.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -157,7 +158,7 @@ class App extends React.Component {
     if (event) {
       event.stopPropagation();
     }
-    
+
     const {captionExpanded} = this.state;
 
     this.setState({
@@ -168,6 +169,8 @@ class App extends React.Component {
   setHeight() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    const shardsHeight = this.shardsContainer.clientHeight;
+    document.documentElement.style.setProperty('--actual-shards-height', `${shardsHeight}px`);
   }
 
   componentDidMount() {
@@ -198,7 +201,9 @@ class App extends React.Component {
           <p>Currently working for <ExtLink href='https://moku.io'>moku</ExtLink></p>
         </div>
 
-        <div className='shards-container'>
+        <div className='shards-container' ref={shardsContainer => {
+          this.shardsContainer = shardsContainer
+        }}>
           {
             // Generate nShards shards
             [...Array(this.nShards)].map((_, i) => (

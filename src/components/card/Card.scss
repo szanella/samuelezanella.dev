@@ -6,11 +6,11 @@
   box-shadow: $trello-card-shadow;
   flex: 0 0 auto;
   margin-bottom: $trello-card-gutter;
-  padding: calc(var(--vh, 1vh) * 0.75) calc(var(--vh, 1vh) * 1);
+  padding: $trello-card-padding;
 
   .card-line {
     @include trello-card-line('light');
-    margin: calc(var(--vh, 1vh) * 1) 0;
+    margin: $trello-card-line-margin;
 
     &--1 {
       width: 33%
