@@ -648,7 +648,7 @@
 
           @for $i from 1 through 10 {
             &:nth-child(#{$i}) {
-              transition-delay: #{$i * 85 + 500}ms;
+              transition-delay: #{$i * 85 + 600}ms;
             }
           }
         }
