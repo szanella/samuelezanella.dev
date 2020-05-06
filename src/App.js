@@ -285,8 +285,9 @@ class App extends React.Component {
                  predicate='do'
                  subject='Project Management'
                  onClick={this.toggleCaptionExpanded}>
-          <p>I proficiently use tools such as <span className='accent'>Jira</span> and <span className='accent'>Trello</span> to manage projects and track tasks, costs and general progress.</p>
-          <p>I mainly focus on <span className='accent'>Agile</span> approaches, more specifically <span className='accent'>Scrum</span>.</p>
+          <p>My main focus are <span className='accent'>Agile</span> approaches, more specifically <span className='accent'>Scrum</span>.</p>
+          <p>I make proficient use of tools such as <span className='accent'>Jira</span> and <span className='accent'>Trello</span> to manage projects and track tasks, costs and general progress.</p>
+          <p>I love taking part in <span className='accent'>all the steps</span> that take a project from start to finish, leading a team and interacting with the stakeholders.</p>
         </Caption>
         <Caption shown={containerState === 'ai'}
                  expanded={captionExpanded}
