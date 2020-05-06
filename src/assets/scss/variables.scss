@@ -55,4 +55,5 @@ $trello-card-gutter: calc(var(--shards-vh) * 2);
 $trello-card-padding: calc(var(--shards-vh) * 0.75) calc(var(--shards-vh) * 1);
 $trello-card-line-height: calc(var(--shards-vh) * 1.25);
 $trello-card-line-margin: calc(var(--shards-vh) * 1) 0;
-$trello-card-shadow: 0 1px 0 rgba(9,30,66,.25)
+$trello-card-shadow: 0 1px 0 rgba(9,30,66,.25);
+$trello-user-diameter: calc(var(--shards-vh) * 3)

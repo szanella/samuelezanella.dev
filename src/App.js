@@ -233,31 +233,31 @@ class App extends React.Component {
           <div className='trello-columns'>
             <div className='column column--1'>
               <div className='column__title column__title--2'></div>
-              <Card nRows={3} lastRowLength={1}></Card>
-              <Card nRows={2} lastRowLength={2}></Card>
+              <Card nRows={3} lastRowLength={1} assigned></Card>
+              <Card nRows={2} lastRowLength={2} assigned></Card>
               <Card nRows={1} lastRowLength={2}></Card>
               <Card nRows={2} lastRowLength={3}></Card>
             </div>
             <div className='column column--2'>
               <div className='column__title column__title--1'></div>
               <Card nRows={2} lastRowLength={2}></Card>
-              <Card nRows={2} lastRowLength={1}></Card>
+              <Card nRows={2} lastRowLength={1} assigned></Card>
               <Card nRows={1} lastRowLength={1}></Card>
             </div>
             <div className='column column--3'>
               <div className='column__title column__title--3'></div>
-              <Card nRows={3} lastRowLength={1}></Card>
+              <Card nRows={3} lastRowLength={1} assigned></Card>
               <Card nRows={3} lastRowLength={2}></Card>
               <Card nRows={2} lastRowLength={1}></Card>
-              <Card nRows={1} lastRowLength={3}></Card>
+              <Card nRows={1} lastRowLength={3} assigned></Card>
             </div>
             <div className='column column--4'>
               <div className='column__title column__title--2'></div>
               <Card nRows={2} lastRowLength={1}></Card>
-              <Card nRows={1} lastRowLength={2}></Card>
-              <Card nRows={1} lastRowLength={2}></Card>
+              <Card nRows={1} lastRowLength={2} assigned></Card>
+              <Card nRows={1} lastRowLength={2} assigned></Card>
               <Card nRows={2} lastRowLength={3}></Card>
-              <Card nRows={3} lastRowLength={1}></Card>
+              <Card nRows={3} lastRowLength={1} assigned></Card>
               <Card nRows={3} lastRowLength={2}></Card>
             </div>
           </div>

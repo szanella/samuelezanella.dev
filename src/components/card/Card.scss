@@ -24,4 +24,16 @@
       width: 100%
     }
   }
+
+  .trello-user {
+    background-color: $trello-user-bg;
+    background-image: url('../../assets/svg/face.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 90%;
+    border-radius: 50%;
+    height: $trello-user-diameter;
+    margin-left: auto;
+    width: $trello-user-diameter;
+  }
 }
