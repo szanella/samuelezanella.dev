@@ -5,6 +5,7 @@ import handCursor from './assets/svg/hand-cursor.svg';
 import {concatMap, delay, scan} from 'rxjs/operators';
 import {of, concat} from 'rxjs';
 import Caption from './components/Caption';
+import Card from './components/card/Card';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class App extends React.Component {
       'intro',
       'frontend',
       'backend',
+      'pm',
       'ai',
       'contacts'
     ];
@@ -65,6 +67,7 @@ class App extends React.Component {
     this.toState = this.toState.bind(this);
     this.handleKeypress = this.handleKeypress.bind(this);
     this.toggleCaptionExpanded = this.toggleCaptionExpanded.bind(this);
+    this.setHeight = this.setHeight.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -148,14 +151,14 @@ class App extends React.Component {
   }
 
   toggleCaptionExpanded(event = null) {
-    if (!['frontend', 'backend', 'ai'].includes(this.state.containerState)) {
+    if (!['frontend', 'backend', 'pm', 'ai'].includes(this.state.containerState)) {
       return;
     }
 
     if (event) {
       event.stopPropagation();
     }
-    
+
     const {captionExpanded} = this.state;
 
     this.setState({
@@ -166,6 +169,8 @@ class App extends React.Component {
   setHeight() {
     const vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', `${vh}px`);
+    const shardsHeight = this.shardsContainer.clientHeight;
+    document.documentElement.style.setProperty('--actual-shards-height', `${shardsHeight}px`);
   }
 
   componentDidMount() {
@@ -196,7 +201,9 @@ class App extends React.Component {
           <p>Currently working for <ExtLink href='https://moku.io'>moku</ExtLink></p>
         </div>
 
-        <div className='shards-container'>
+        <div className='shards-container' ref={shardsContainer => {
+          this.shardsContainer = shardsContainer
+        }}>
           {
             // Generate nShards shards
             [...Array(this.nShards)].map((_, i) => (
@@ -223,6 +230,37 @@ class App extends React.Component {
             <div className='post__line post--2__line--3'></div>
             <div className='post__line post--2__line--4'></div>
           </div>
+          <div className='trello-columns'>
+            <div className='column column--1'>
+              <div className='column__title column__title--2'></div>
+              <Card nRows={3} lastRowLength={1} assigned></Card>
+              <Card nRows={2} lastRowLength={2} assigned></Card>
+              <Card nRows={1} lastRowLength={2}></Card>
+              <Card nRows={2} lastRowLength={3}></Card>
+            </div>
+            <div className='column column--2'>
+              <div className='column__title column__title--1'></div>
+              <Card nRows={2} lastRowLength={2}></Card>
+              <Card nRows={2} lastRowLength={1} assigned></Card>
+              <Card nRows={1} lastRowLength={1}></Card>
+            </div>
+            <div className='column column--3'>
+              <div className='column__title column__title--3'></div>
+              <Card nRows={3} lastRowLength={1} assigned></Card>
+              <Card nRows={3} lastRowLength={2}></Card>
+              <Card nRows={2} lastRowLength={1}></Card>
+              <Card nRows={1} lastRowLength={3} assigned></Card>
+            </div>
+            <div className='column column--4'>
+              <div className='column__title column__title--2'></div>
+              <Card nRows={2} lastRowLength={1}></Card>
+              <Card nRows={1} lastRowLength={2} assigned></Card>
+              <Card nRows={1} lastRowLength={2} assigned></Card>
+              <Card nRows={2} lastRowLength={3}></Card>
+              <Card nRows={3} lastRowLength={1} assigned></Card>
+              <Card nRows={3} lastRowLength={2}></Card>
+            </div>
+          </div>
         </div>
 
         <Caption shown={containerState === 'frontend'}
@@ -232,7 +270,7 @@ class App extends React.Component {
                  onClick={this.toggleCaptionExpanded}>
           <p>I love creating sleek and usable interfaces using bleeding edge technologies.</p>
           <p>My main focus are web applications, built in <span className='accent'>Angular</span> and <span className='accent'>React</span>, in conjunction with <span className='accent'>Redux</span>.</p>
-          <p>I am proficient with <span className='accent'>HTML5</span> and  <span className='accent'>CSS</span>, which I often use paired with  <span className='accent'>Sass</span>.</p>
+          <p>I am proficient with <span className='accent'>HTML5</span> and <span className='accent'>CSS</span>, which I often use paired with <span className='accent'>Sass</span>.</p>
         </Caption>
         <Caption shown={containerState === 'backend'}
                  expanded={captionExpanded}
@@ -241,6 +279,15 @@ class App extends React.Component {
                  onClick={this.toggleCaptionExpanded}>
           <p>I build <span className='accent'>REST</span> and <span className='accent'>GraphQL</span> backends, mainly in <span className='accent'>Ruby on Rails</span> and with relational databases.</p>
           <p>I am also familiar with <span className='accent'>Node.js</span> and non-relational databases such as <span className='accent'>MongoDB</span>.</p>
+        </Caption>
+        <Caption shown={containerState === 'pm'}
+                 expanded={captionExpanded}
+                 predicate='do'
+                 subject='Project Management'
+                 onClick={this.toggleCaptionExpanded}>
+          <p>My main focus are <span className='accent'>Agile</span> approaches, more specifically <span className='accent'>Scrum</span>.</p>
+          <p>I make proficient use of tools such as <span className='accent'>Jira</span> and <span className='accent'>Trello</span> to manage projects and track tasks, costs and general progress.</p>
+          <p>I love taking part in <span className='accent'>all the steps</span> that take a project from start to finish, leading a team and interacting with the stakeholders.</p>
         </Caption>
         <Caption shown={containerState === 'ai'}
                  expanded={captionExpanded}

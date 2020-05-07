@@ -1,4 +1,6 @@
 @import './variables';
+@import './functions';
+@import './colours';
 
 @mixin shards-disappeared {
   .shards-container {
@@ -40,9 +42,9 @@
           background-color: rgba(224, 224, 224, 0);
           $x: 50%;
           $y: 0%;
-          @if $i == 1 or $i == 2 or $i == 6 or $i == 12 or $i == 13 {
+          @if $i == 1 or $i == 2 or $i == 6 or $i == 8 or $i == 12 or $i == 13 {
             clip-path: polygon($x $y, $x $y, $x $y, $x $y);
-          } @else if $i == 3 or $i == 4 or $i == 5 or $i == 8 or $i == 9 or $i == 10 {
+          } @else if $i == 3 or $i == 4 or $i == 5 or $i == 9 or $i == 10 {
             clip-path: circle(0% at $x $y);
           } @else {
             clip-path: polygon($x $y, $x $y, $x $y);
@@ -115,6 +117,26 @@
   $x1: (100% - $window-width) / 2;
   $y1: (100% - $window-height) / 2 + $y-offset;
   clip-path: circle($terminal-button-radius at ($x1 + ($terminal-button-radius * 2 + $terminal-button-margin) * $n) ($y1 + $terminal-bar-height / 2));
+}
+
+// PM
+@mixin trello-column($index) {
+  background-color: $trello-column-bg;
+  $x1: nth(trello-column-corner($index), 1);
+  $y1: nth(trello-column-corner($index), 2);
+  $x2: $x1 + $trello-column-width;
+  $y2: 100% - (100% - $window-height) / 2 - 5% + $y-offset;
+  clip-path: polygon($x1 $y1, $x2 $y1, $x2 $y2, $x1 $y2);
+}
+
+@mixin trello-card-line($tint) {
+  @if $tint == 'dark' {
+    background-color: $content-placeholder-colour-darker;
+  } @else {
+    background-color: $content-placeholder-colour-light;
+  }
+  border-radius: $content-placeholder-border-radius-2;
+  height: $trello-card-line-height;
 }
 
 // AI

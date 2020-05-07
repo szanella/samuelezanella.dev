@@ -35,8 +35,9 @@ $mouse-base-coords: (
 $search-bar-height: 4%;
 $search-bar-width: 24%;
 $page-side-margin: 4%;
-$content-placeholder-colour-dark: #D2D2D2;
-$content-placeholder-colour-light: #E1E1E1;
+$content-placeholder-colour-darker: #b6b6b6;
+$content-placeholder-colour-dark: #d2d2d2;
+$content-placeholder-colour-light: #e1e1e1;
 $content-placeholder-height-1: 2.5%;
 $content-placeholder-border-radius-1: calc(100vmax * #{$aspect-ratio} * 0.125);
 $content-placeholder-height-2: 2.1% ;
@@ -45,3 +46,14 @@ $content-placeholder-border-radius-2: calc(100vmax * #{$aspect-ratio} * 0.105);
 $post-1-height: 22.5%;
 $post-2-height: 26%;
 $posts-y-margin: 4%;
+
+// PM
+$trello-column-width: 14%;
+$trello-column-gutter: 2.25%;
+$trello-column-padding: calc(var(--shards-vh) * 2);
+$trello-card-gutter: calc(var(--shards-vh) * 2);
+$trello-card-padding: calc(var(--shards-vh) * 0.75) calc(var(--shards-vh) * 1);
+$trello-card-line-height: calc(var(--shards-vh) * 1.25);
+$trello-card-line-margin: calc(var(--shards-vh) * 1) 0;
+$trello-card-shadow: 0 1px 0 rgba(9,30,66,.25);
+$trello-user-diameter: calc(var(--shards-vh) * 3)
