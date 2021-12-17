@@ -198,7 +198,7 @@ class App extends React.Component {
           <h1 className='name'>Samuele</h1>
 
           <p>Full Stack Engineer based in Italy</p>
-          <p>Currently working for <ExtLink href='https://sensortower.com/'>sensor tower</ExtLink></p>
+          <p>Currently working for <ExtLink href='https://sensortower.com/'>Sensor Tower</ExtLink></p>
         </div>
 
         <div className='shards-container' ref={shardsContainer => {
